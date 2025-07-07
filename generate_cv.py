@@ -18,8 +18,13 @@ def fetch_publications(orcid_id):
         summary = work["work-summary"][0]
         title = summary["title"]["title"]["value"]
         year = summary.get("publication-date", {}).get("year", {}).get("value", "n.d.")
-        doi = next((eid["value"] for eid in summary.get("external-ids", {}).get("external-id", [])
-                    if eid["external-id-type"] == "doi"), None)
+        doi = None
+        external_ids = summary.get("external-ids", {}).get("external-id", [])
+        for eid in external_ids:
+            if isinstance(eid, dict):
+                if eid.get("external-id-type") == "doi":
+                    doi = eid.get("external-id-value")
+                    break
         if doi:
             line = f"- **{title}** ({year}), [DOI](https://doi.org/{doi})"
         else:
