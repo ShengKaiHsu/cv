@@ -1,0 +1,43 @@
+name: Generate CV from ORCID
+
+on:
+  schedule:
+    - cron: '0 0 1 * *'  # every Monday
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install Python dependencies
+        run: pip install requests
+
+      - name: Install Pandoc and LaTeX
+        run: |
+          sudo apt-get update
+          sudo apt-get install pandoc texlive-xetex -y
+
+      - name: Generate CV
+        run: python generate_cv.py
+
+      - name: Convert to PDF and DOCX
+        run: |
+          pandoc cv.md -o cv.pdf
+          pandoc cv.md -o cv.docx
+
+      - name: Commit and push results
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add cv.*
+          git commit -m "Auto-update CV"
+          git push
