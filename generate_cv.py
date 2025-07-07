@@ -19,35 +19,83 @@ def fetch_publications(orcid_id):
     response = requests.get(url, headers=headers)
     works = response.json()["group"]
 
-    apa_entries = []
-    non_doi_entries = []
+    entries = []
 
     for work in works:
         summary = work["work-summary"][0]
         title = summary["title"]["title"]["value"]
         year = summary.get("publication-date", {}).get("year", {}).get("value", "n.d.")
-        external_ids = summary.get("external-ids", {}).get("external-id", [])
-
         doi = None
+        external_ids = summary.get("external-ids", {}).get("external-id", [])
         for eid in external_ids:
             if isinstance(eid, dict) and eid.get("external-id-type") == "doi":
                 doi = eid.get("external-id-value")
                 break
 
-        if doi:
-            # Try Crossref lookup
-            crossref_url = f"https://api.crossref.org/works/{doi}"
-            try:
-                r = requests.get(crossref_url)
-                if r.status_code != 200:
-                    raise ValueError("DOI not found in Crossref")
-                metadata = r.json()["message"]
+        if not doi:
+            continue  # skip if no DOI
 
-                authors = metadata.get("author", [])
+        try:
+            # === Try Crossref first ===
+            crossref_url = f"https://api.crossref.org/works/{doi}"
+            r = requests.get(crossref_url)
+            if r.status_code != 200:
+                raise ValueError("Not in Crossref")
+            metadata = r.json()["message"]
+
+            authors = metadata.get("author", [])
+            author_strs = []
+            for a in authors:
+                given = a.get("given", "")
+                family = a.get("family", "")
+                initials = "".join([g[0] + "." for g in given.split()]) if given else ""
+                name_str = f"{family}, {initials}"
+                if family == YOUR_FAMILY_NAME and YOUR_INITIALS in initials:
+                    name_str = f"**{name_str}**"
+                author_strs.append(name_str)
+
+            if len(author_strs) > 1:
+                author_text = ", ".join(author_strs[:-1]) + ", & " + author_strs[-1]
+            else:
+                author_text = author_strs[0] if author_strs else "Unknown Author"
+
+            pub_year = metadata.get("issued", {}).get("date-parts", [[year]])[0][0]
+            title = metadata.get("title", [""])[0]
+            journal = metadata.get("container-title", [""])[0]
+            volume = metadata.get("volume", "")
+            issue = metadata.get("issue", "")
+            pages = metadata.get("page", "")
+            doi_url = f"https://doi.org/{doi}"
+
+            citation = f"{author_text} ({pub_year}). **{title}**. *{journal}*"
+            if volume:
+                citation += f", *{volume}*"
+                if issue:
+                    citation += f"({issue})"
+            if pages:
+                citation += f", {pages}"
+            citation += f". {doi_url}"
+
+            entries.append((pub_year, citation))
+
+        except Exception:
+            try:
+                # === Try DataCite (e.g., bioRxiv) ===
+                datacite_url = f"https://api.datacite.org/dois/{doi}"
+                r = requests.get(datacite_url)
+                if r.status_code != 200:
+                    print(f"DOI not found in Crossref or DataCite: {doi}")
+                    continue
+                dc = r.json()["data"]["attributes"]
+                title = dc.get("title", "Untitled")
+                creators = dc.get("creators", [])
+                pub_year = dc.get("publicationYear", year)
+                journal = dc.get("container-title", "Preprint") or "Preprint"
+
                 author_strs = []
-                for a in authors:
-                    given = a.get("given", "")
-                    family = a.get("family", "")
+                for a in creators:
+                    family = a.get("familyName", "")
+                    given = a.get("givenName", "")
                     initials = "".join([g[0] + "." for g in given.split()]) if given else ""
                     name_str = f"{family}, {initials}"
                     if family == YOUR_FAMILY_NAME and YOUR_INITIALS in initials:
@@ -59,54 +107,18 @@ def fetch_publications(orcid_id):
                 else:
                     author_text = author_strs[0] if author_strs else "Unknown Author"
 
-                pub_year = metadata.get("issued", {}).get("date-parts", [[year]])[0][0]
-                title = metadata.get("title", [""])[0]
-                journal = metadata.get("container-title", [""])[0]
-                volume = metadata.get("volume", "")
-                issue = metadata.get("issue", "")
-                pages = metadata.get("page", "")
                 doi_url = f"https://doi.org/{doi}"
+                citation = f"{author_text} ({pub_year}). **{title}**. *{journal}*. {doi_url}"
 
-                citation = f"{author_text} ({pub_year}). **{title}**. *{journal}*"
-                if volume:
-                    citation += f", *{volume}*"
-                    if issue:
-                        citation += f"({issue})"
-                if pages:
-                    citation += f", {pages}"
-                citation += f". {doi_url}"
+                entries.append((pub_year, citation))
 
-                apa_entries.append((pub_year, citation))
             except Exception as e:
-                print(f"Error fetching DOI {doi}: {e}")
+                print(f"Error processing DOI {doi}: {e}")
                 continue
-        else:
-            # Format fallback entry
-            authors = summary.get("contributors", {}).get("contributor", [])
-            author_text = "Unknown Author"
-            if authors:
-                author_strs = []
-                for a in authors:
-                    credit = a.get("credit-name", {}).get("value", "")
-                    if YOUR_FAMILY_NAME in credit and YOUR_INITIALS in credit:
-                        credit = f"**{credit}**"
-                    author_strs.append(credit)
-                if len(author_strs) > 1:
-                    author_text = ", ".join(author_strs[:-1]) + ", & " + author_strs[-1]
-                else:
-                    author_text = author_strs[0]
 
-            source = summary.get("journal-title", {}).get("value", "Preprint")
-            fallback_entry = f"{author_text} ({year}). **{title}**. *{source}*."
-            non_doi_entries.append((year, fallback_entry))
-
-    # Sort both lists
-    apa_sorted = sorted(apa_entries, key=lambda x: str(x[0]), reverse=True)
-    non_doi_sorted = sorted(non_doi_entries, key=lambda x: str(x[0]), reverse=True)
-
-    # Combine and number
-    all_entries = apa_sorted + non_doi_sorted
-    return "\n\n".join(f"{i+1}. {entry}" for i, (_, entry) in enumerate(all_entries))
+    # Sort by year descending and format numbered list
+    sorted_entries = sorted(entries, key=lambda x: str(x[0]), reverse=True)
+    return "\n\n".join(f"{i+1}. {entry}" for i, (_, entry) in enumerate(sorted_entries))
 
 # === CV TEMPLATE MERGE ===
 
