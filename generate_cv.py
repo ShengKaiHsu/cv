@@ -9,7 +9,7 @@ ORCID_ID = "0000-0002-6942-7163"  # replace with yours
 
 # For bolding your name
 YOUR_FAMILY_NAME = "Hsu"
-YOUR_INITIALS = "S."  # Set to "W" or "W.-Y" depending on how it's recorded
+YOUR_INITIALS = "S-K."  # Set to "W" or "W.-Y" depending on how it's recorded
 
 # === MAIN FUNCTIONS ===
 
