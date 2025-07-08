@@ -1,10 +1,9 @@
-\begin{center}  
-**Sheng-Kai Hsu**  
-  
-Postdoc, Institute for Genomic Diversity, Cornell University  
-sh2246@cornell.edu  
-[0000-0002-6942-7163](https://orcid.org/0000-0002-6942-7163)  
-\end{center}  
+# Sheng-Kai Hsu
+
+**Position** Postdoc
+**Affiliation:** Institute for Genomic Diversity, Cornell University  
+**Email:** sh2246@cornell.edu  
+**ORCID:** [0000-0002-6942-7163](https://orcid.org/0000-0002-6942-7163)
 
 ---
 
