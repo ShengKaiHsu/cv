@@ -1,9 +1,9 @@
 \begin{center}  
-# {{NAME}}
-
-**Email:** {{EMAIL}}  
-**Affiliation:** {{AFFILIATION}}  
-**ORCID:** [{{ORCID}}](https://orcid.org/{{ORCID}})  
+**{{NAME}}**  
+  
+{{AFFILIATION}}  
+{{EMAIL}}  
+[{{ORCID}}](https://orcid.org/{{ORCID}})  
 \end{center}  
 
 ---
