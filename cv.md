@@ -46,13 +46,13 @@
 
 ## Preprints
 
-1. Unknown Author (2025). *Grass Rhizome Proteomics Reveals Convergent Freezing-Tolerance Strategies*. bioRxiv. https://doi.org/10.1101/2025.05.15.654294
+1. Elad Oren, Jingjing Zhai, Travis Rooney, Ruthie  Angelovici, Charles Hale, Lara J. Brindisi, **Sheng-Kai Hsu**, Christine Gault, Jian Hua, Thuy La, Nicholas Lepak, Qin Fu, Edward Buckler, & Cinta Romay (2025). *Grass Rhizome Proteomics Reveals Convergent Freezing-Tolerance Strategies*. bioRxiv. https://doi.org/10.1101/2025.05.15.654294
 
-2. Unknown Author (2025). *Extensive modulation of a conserved<i>cis</i>-regulatory code across 589 grass species*. bioRxiv. https://doi.org/10.1101/2025.04.23.650228
+2. Charles O. Hale, **Sheng-Kai Hsu**, Jingjing Zhai, Aimee J. Schulz, Taylor Aubuchon-Elder, Germano Costa-Neto, Allen Gelfond, Mohamed El-Walid, Matthew Hufford, Elizabeth A. Kellogg, Thuy La, Alexandre P. Marand, Arun S. Seetharam, Armin Scheben, Michelle Stitzer, Travis Wrightsman, M. Cinta Romay, & Edward S. Buckler (2025). *Extensive modulation of a conserved<i>cis</i>-regulatory code across 589 grass species*. bioRxiv. https://doi.org/10.1101/2025.04.23.650228
 
-3. Unknown Author (2025). *Extensive genome evolution distinguishes maize within a stable tribe of grasses*. bioRxiv. https://doi.org/10.1101/2025.01.22.633974
+3. Michelle C. Stitzer, Arun S. Seetharam, Armin Scheben, **Sheng-Kai Hsu**, Aimee J. Schulz, Taylor M. AuBuchon-Elder, Mohamed El-Walid, Taylor H. Ferebee, Charles O. Hale, Thuy La, Zong-Yan Liu, Sarah J. McMorrow, Patrick Minx, Alyssa R. Phillips, Michael L. Syring, Travis Wrightsman, Jingjing Zhai, Rémy Pasquet, Christine A. McAllister, Simon T. Malcomber, Paweena Traiperm, Daniel J. Layton, Jinshun Zhong, Denise E. Costich, R. Kelly Dawe, Kevin Fengler, Charlotte Harris, Zach Irelan, Victor Llaca, Praveena Parakkal, Gina Zastrow-Hayes, Margaret R. Woodhouse, Ethalinda K. Cannon, John L. Portwood, II, Carson M. Andorf, Patrice S. Albert, James A. Birchler, Adam Siepel, Jeffrey Ross-Ibarra, M. Cinta Romay, Elizabeth A. Kellogg, Edward S. Buckler, & Matthew B. Hufford (2025). *Extensive genome evolution distinguishes maize within a stable tribe of grasses*. bioRxiv. https://doi.org/10.1101/2025.01.22.633974
 
-4. Unknown Author (2023). *Fishing for a reelGene: evaluating gene models with evolution and machine learning*. bioRxiv. https://doi.org/10.1101/2023.09.19.558246
+4. Aimee J Schulz, Jingjing Zhai, Taylor AuBuchon-Elder, Mohamed El-Walid, Taylor Ferebee, Elizabeth Gilmore, Matthew Hufford, Lynn C Johnson, Elizabeth Kellogg, Thuy La, Evan Long, Zachary R Miller, Cinta Romay, Arun Seetharam, Michelle Stitzer, Travis Wrightsman, Edward Buckler, Brandon Monier, & **Sheng-Kai Hsu** (2023). *Fishing for a reelGene: evaluating gene models with evolution and machine learning*. bioRxiv. https://doi.org/10.1101/2023.09.19.558246
 
 
 ---
