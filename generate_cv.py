@@ -120,23 +120,35 @@ def fetch_publications(orcid_id):
             except Exception:
                 pass
 
-            # === Final fallback using ORCID contributor names ===
-            contributors = summary.get("contributors", {}).get("contributor", [])
-            author_strs = []
-            for c in contributors:
-                credit = c.get("credit-name", {}).get("value", "")
-                if not credit:
-                    continue
-                if YOUR_FAMILY_NAME in credit:
-                    credit = f"**{credit}**"
-                author_strs.append(credit)
-            if not author_strs:
-                author_strs = ["Unknown Author"]
-            author_text = ", ".join(author_strs[:-1]) + ", & " + author_strs[-1] if len(author_strs) > 1 else author_strs[0]
-
-            doi_url = f"https://doi.org/{doi}"
-            citation = f"{author_text} ({year}). *{title}*. bioRxiv. {doi_url}"
-            entry_list.append((year, citation))
+            # Final fallback: query full ORCID work by put-code
+            try:
+                work_url = f"https://pub.orcid.org/v3.0/{orcid_id}/work/{put_code}"
+                r = requests.get(work_url, headers=headers)
+                if r.status_code != 200:
+                    raise ValueError("put-code not found")
+            
+                work_data = r.json()
+                contribs = work_data.get("contributors", {}).get("contributor", [])
+            
+                author_strs = []
+                for c in contribs:
+                    role = c.get("contributor-attributes", {}).get("contributor-role", "").lower()
+                    if role != "author":
+                        continue
+                    name = c.get("credit-name", {}).get("value", "")
+                    if YOUR_FAMILY_NAME in name:
+                        name = f"**{name}**"
+                    author_strs.append(name)
+            
+                if not author_strs:
+                    author_strs = ["Unknown Author"]
+            
+                author_text = ", ".join(author_strs[:-1]) + ", & " + author_strs[-1] if len(author_strs) > 1 else author_strs[0]
+                citation = f"{author_text} ({year}). *{title}*. bioRxiv. https://doi.org/{doi}"
+                entry_list.append((year, citation))
+            
+            except Exception as e:
+                print(f"Could not retrieve full ORCID work {put_code}: {e}")
 
     # === Format final output ===
     def format_section(title, entries):
