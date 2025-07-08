@@ -3,7 +3,7 @@
 
 **Email:** {{EMAIL}}  
 **Affiliation:** {{AFFILIATION}}  
-**ORCID:** [{{ORCID}}](https://orcid.org/{{ORCID}})
+**ORCID:** [{{ORCID}}](https://orcid.org/{{ORCID}})  
 \end{center}  
 
 ---
