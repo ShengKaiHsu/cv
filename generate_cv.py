@@ -17,8 +17,10 @@ YOUR_INITIALS = "S.-K."  # Set to "W" or "W.-Y" depending on how it's recorded
 def extract_initials(given):
     if not given or not isinstance(given, str):
         return ""
-    
-    # Split by spaces only, preserve hyphenated parts
+
+    # Normalize hyphen-like characters to ASCII hyphen-minus
+    given = re.sub(r"[\u2010\u2011\u2012\u2013\u2014\u2015]", "-", given)
+
     space_parts = given.strip().split()
     initials = []
 
@@ -104,7 +106,7 @@ def fetch_publications(orcid_id):
                 pages = metadata.get("page", "")
                 doi_url = f"https://doi.org/{doi}"
 
-                citation = f"crossref:{author_text} ({pub_year}). *{title}*. *{journal}*"
+                citation = f"{author_text} ({pub_year}). *{title}*. *{journal}*"
                 if volume:
                     citation += f", *{volume}*"
                     if issue:
@@ -113,36 +115,6 @@ def fetch_publications(orcid_id):
                     citation += f", {pages}"
                 citation += f". {doi_url}"
 
-                entry_list.append((pub_year, citation))
-                continue
-            except Exception:
-                pass
-
-            # === Try DataCite ===
-            try:
-                r = requests.get(f"https://api.datacite.org/dois/{doi}")
-                if r.status_code != 200:
-                    raise ValueError("Not in DataCite")
-                dc = r.json()["data"]["attributes"]
-
-                title = dc.get("title", "Untitled")
-                creators = dc.get("creators", [])
-                pub_year = dc.get("publicationYear", year)
-                journal = dc.get("container-title", "Preprint") or "Preprint"
-
-                author_strs = []
-                for c in creators:
-                    given = c.get("givenName", "")
-                    family = c.get("familyName", "")
-                    if not given or not family:
-                        print(f"⚠️ Missing author info in DataCite: {title}, DOI: {doi}")
-                    name_str = format_author(family, given, bold_if_matches=True)
-                    author_strs.append(name_str)
-
-                display_authors = author_strs[:10] + ["*et al.*"] if len(author_strs) > 10 else author_strs
-                author_text = ", ".join(display_authors[:-1]) + ", & " + display_authors[-1] if len(display_authors) > 1 else display_authors[0]
-
-                citation = f"Datacite: {author_text} ({pub_year}). *{title}*. *{journal}*. https://doi.org/{doi}"
                 entry_list.append((pub_year, citation))
                 continue
             except Exception:
