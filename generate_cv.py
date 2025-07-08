@@ -106,7 +106,7 @@ def fetch_publications(orcid_id):
                 pages = metadata.get("page", "")
                 doi_url = f"https://doi.org/{doi}"
 
-                citation = f"{author_text} ({pub_year}). *{title}*. *{journal}*"
+                citation = f"{author_text} ({pub_year}). **{title}**. *{journal}*"
                 if volume:
                     citation += f", *{volume}*"
                     if issue:
@@ -148,10 +148,10 @@ def fetch_publications(orcid_id):
                 if not author_strs:
                     author_strs = ["Unknown Author"]
 
-                display_authors = author_strs[:10] + ["*et al.*"] if len(author_strs) > 10 else author_strs
+                display_authors = author_strs[:10] + ["*et al.*"] if len(author_strs) > 20 else author_strs
                 author_text = ", ".join(display_authors[:-1]) + ", & " + display_authors[-1] if len(display_authors) > 1 else author_strs[0]
 
-                citation = f"{author_text} ({year}). *{title}*. bioRxiv. https://doi.org/{doi}"
+                citation = f"{author_text} ({year}). **{title}**. *bioRxiv.* https://doi.org/{doi}"
                 entry_list.append((year, citation))
 
             except Exception as e:
