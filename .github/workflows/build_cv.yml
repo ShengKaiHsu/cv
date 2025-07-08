@@ -33,11 +33,11 @@ jobs:
         run: |
           pandoc cv.md \
           --pdf-engine=xelatex \
-          --template=elegant.latex \
+           -V geometry:top=1.5cm,bottom=1.5cm,left=1.5cm,right=1.5cm \
           -o cv.pdf
           pandoc cv.md \
           --pdf-engine=xelatex \
-          --template=elegant.latex \
+           -V geometry:top=1.5cm,bottom=1.5cm,left=1.5cm,right=1.5cm \
           -o cv.doc
           
       - name: Commit and push results
