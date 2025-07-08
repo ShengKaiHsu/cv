@@ -23,7 +23,7 @@
 {{PUBLICATIONS}}
 
 # Presentations
-Conference presentations
+
 2025 **The genetic basis of environmental adaptation in Poaceae.** *Poster presentation*, The 67th Annual Maize Genetic Meeting, March 6-9, St. Loius, MO USA  
 2024 **The genetic basis of environmental adaptation in Poaceae.** *Poster presentation*, ICQG7, July 22-26, Vienna, Austria  
 2024 **The phylogenetic variation in the rhizosphere nitrogen cycle of diverse grass species in the Andropogoneae.** *Oral presentation*, The 66th Annual Maize Genetic Meeting, February 29-March 3, Raleigh, NC, USA   
