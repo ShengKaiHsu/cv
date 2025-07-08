@@ -6,7 +6,7 @@
 
 ---
 
-## Positions & Education
+# Positions & Education
 
 | Year         | Position / Degree                                                                 |
 |--------------|------------------------------------------------------------------------------------|
@@ -19,7 +19,7 @@
 | 2010–2014    | B.Sc., Department of Agronomy, National Taiwan University                         |
 ---
 
-## Publications
+# Publications
 
 {{PUBLICATIONS}}
 
