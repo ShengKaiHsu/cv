@@ -20,7 +20,7 @@
 
 ## Peer-reviewed Publications
 
-1. Hsu, S., Emmett, B.D., Haafke, A., Costa‐Neto, G., Schulz, A.J., Lepak, N., La, T., AuBuchon‐Elder, T.M., Hale, C.O., Raglin, S.S., & *et al.* (2025). *Contrasting rhizosphere nitrogen dynamics in Andropogoneae grasses*. *The Plant Journal*, *123*(1). https://doi.org/10.1111/tpj.70319
+1. Hsu, S., Emmett, B.D., Haafke, A., Costa‐Neto, G., Schulz, A.J., Lepak, N., La, T., AuBuchon‐Elder, T.M., Hale, C.O., Raglin, S.S., Ojeda‐Rivera, J.O., Kent, A.D., Kellogg, E.A., Romay, M.C., & Buckler, E.S. (2025). *Contrasting rhizosphere nitrogen dynamics in Andropogoneae grasses*. *The Plant Journal*, *123*(1). https://doi.org/10.1111/tpj.70319
 
 2. Thorhölludottir, D.A.V., Hsu, S., Barghi, N., Mallard, F., Nolte, V., & Schlötterer, C. (2025). *Reduced Parallel Gene Expression Evolution With Increasing Genetic Divergence—A Hallmark of Polygenic Adaptation*. *Molecular Ecology*, *34*(12). https://doi.org/10.1111/mec.17803
 
