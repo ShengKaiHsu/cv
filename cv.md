@@ -1,25 +1,28 @@
-# Sheng-Kai Hsu
-
-**Email:** sh2246@cornell.edu  
-**Affiliation:** Postdoc, Institute for Genomic Diversity, Cornell University  
-**ORCID:** [0000-0002-6942-7163](https://orcid.org/0000-0002-6942-7163)
+\begin{center}  
+**Sheng-Kai Hsu**  
+  
+Postdoc, Institute for Genomic Diversity, Cornell University  
+sh2246@cornell.edu  
+[0000-0002-6942-7163](https://orcid.org/0000-0002-6942-7163)  
+\end{center}  
 
 ---
 
-## Positions & Education
+# Positions & Education
 
 | Year         | Position / Degree                                                                 |
 |--------------|------------------------------------------------------------------------------------|
-| 2022–present | Postdoc, Institute for Genomic Diversity, Cornell University  
-*Advisor: Edward Buckler*                      |
-| 2017–2021    | Ph.D., Vienna Graduate School of Population Genetics, Univ. of Veterinary Medicine Vienna  
-*Advisor: Christian Schlötterer* |
-| 2014–2015    | M.Sc., Department of Agronomy, National Taiwan University  
-*Advisor: Chih-Wei Tung* |
+| 2022–present | Postdoc, Institute for Genomic Diversity, Cornell University  |  
+|              | *Advisor: Edward Buckler*                      |
+| 2017–2021    | Ph.D., Vienna Graduate School of Population Genetics, Univ. of Veterinary Medicine Vienna  |
+|              | *Advisor: Christian Schlötterer* |
+| 2014–2015    | M.Sc., Department of Agronomy, National Taiwan University  |
+|              | *Advisor: Chih-Wei Tung* |
 | 2010–2014    | B.Sc., Department of Agronomy, National Taiwan University                         |
+
 ---
 
-## Publications
+# Publications
 
 ## Peer-reviewed Publications
 
