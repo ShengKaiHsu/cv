@@ -20,22 +20,21 @@ def fetch_publications(orcid_id):
     works = response.json()["group"]
 
     entries = []
-    seen_dois = set()  # prevent duplicates
+    seen_dois = set()
 
-    for work in works:
-        for summary in work.get("work-summary", []):
+    for group in works:
+        for summary in group.get("work-summary", []):
             work_type = summary.get("type", "").lower()
             if work_type not in ["journal-article", "preprint"]:
-                continue  # Skip other types
+                continue
 
-            title = summary["title"]["title"]["value"]
+            title = summary.get("title", {}).get("title", {}).get("value", "Untitled")
             year = summary.get("publication-date", {}).get("year", {}).get("value", "n.d.")
 
-            # Extract DOI
             doi = None
             external_ids = summary.get("external-ids", {}).get("external-id", [])
             for eid in external_ids:
-                if isinstance(eid, dict) and eid.get("external-id-type") == "doi":
+                if eid.get("external-id-type") == "doi":
                     doi = eid.get("external-id-value")
                     break
 
@@ -43,10 +42,9 @@ def fetch_publications(orcid_id):
                 continue
             seen_dois.add(doi)
 
-            # Try Crossref
+            # === Try Crossref ===
             try:
-                crossref_url = f"https://api.crossref.org/works/{doi}"
-                r = requests.get(crossref_url)
+                r = requests.get(f"https://api.crossref.org/works/{doi}")
                 if r.status_code != 200:
                     raise ValueError("Not in Crossref")
                 metadata = r.json()["message"]
@@ -62,11 +60,7 @@ def fetch_publications(orcid_id):
                         name_str = f"**{name_str}**"
                     author_strs.append(name_str)
 
-                if len(author_strs) > 1:
-                    author_text = ", ".join(author_strs[:-1]) + ", & " + author_strs[-1]
-                else:
-                    author_text = author_strs[0] if author_strs else "Unknown Author"
-
+                author_text = ", ".join(author_strs[:-1]) + ", & " + author_strs[-1] if len(author_strs) > 1 else author_strs[0]
                 pub_year = metadata.get("issued", {}).get("date-parts", [[year]])[0][0]
                 title = metadata.get("title", [""])[0]
                 journal = metadata.get("container-title", [""])[0]
@@ -85,45 +79,57 @@ def fetch_publications(orcid_id):
                 citation += f". {doi_url}"
 
                 entries.append((pub_year, citation))
+                continue  # Success, go to next
 
             except Exception:
-                # Fallback to DataCite (for preprints like bioRxiv)
-                try:
-                    datacite_url = f"https://api.datacite.org/dois/{doi}"
-                    r = requests.get(datacite_url)
-                    if r.status_code != 200:
-                        print(f"DOI not found in Crossref or DataCite: {doi}")
-                        continue
-                    dc = r.json()["data"]["attributes"]
+                pass  # fallback to next source
 
-                    title = dc.get("title", "Untitled")
-                    creators = dc.get("creators", [])
-                    pub_year = dc.get("publicationYear", year)
-                    journal = dc.get("container-title", "Preprint") or "Preprint"
+            # === Try DataCite ===
+            try:
+                r = requests.get(f"https://api.datacite.org/dois/{doi}")
+                if r.status_code != 200:
+                    raise ValueError("Not in DataCite")
+                dc = r.json()["data"]["attributes"]
 
-                    author_strs = []
-                    for a in creators:
-                        family = a.get("familyName", "")
-                        given = a.get("givenName", "")
-                        initials = "".join([g[0] + "." for g in given.split()]) if given else ""
-                        name_str = f"{family}, {initials}"
-                        if family == YOUR_FAMILY_NAME and YOUR_INITIALS in initials:
-                            name_str = f"**{name_str}**"
-                        author_strs.append(name_str)
+                title = dc.get("title", "Untitled")
+                creators = dc.get("creators", [])
+                pub_year = dc.get("publicationYear", year)
+                journal = dc.get("container-title", "Preprint") or "Preprint"
 
-                    if len(author_strs) > 1:
-                        author_text = ", ".join(author_strs[:-1]) + ", & " + author_strs[-1]
-                    else:
-                        author_text = author_strs[0] if author_strs else "Unknown Author"
+                author_strs = []
+                for a in creators:
+                    family = a.get("familyName", "")
+                    given = a.get("givenName", "")
+                    initials = "".join([g[0] + "." for g in given.split()]) if given else ""
+                    name_str = f"{family}, {initials}"
+                    if family == YOUR_FAMILY_NAME and YOUR_INITIALS in initials:
+                        name_str = f"**{name_str}**"
+                    author_strs.append(name_str)
 
-                    doi_url = f"https://doi.org/{doi}"
-                    citation = f"{author_text} ({pub_year}). *{title}*. *{journal}*. {doi_url}"
+                author_text = ", ".join(author_strs[:-1]) + ", & " + author_strs[-1] if len(author_strs) > 1 else author_strs[0]
+                doi_url = f"https://doi.org/{doi}"
+                citation = f"{author_text} ({pub_year}). *{title}*. *{journal}*. {doi_url}"
+                entries.append((pub_year, citation))
+                continue  # Success
 
-                    entries.append((pub_year, citation))
+            except Exception:
+                pass  # fallback to ORCID metadata
 
-                except Exception as e:
-                    print(f"Error processing DOI {doi}: {e}")
-                    continue
+            # === Final Fallback: Use ORCID info only ===
+            contributors = summary.get("contributors", {}).get("contributor", [])
+            author_text = "Unknown Author"
+            if contributors:
+                author_strs = []
+                for a in contributors:
+                    name = a.get("credit-name", {}).get("value", "")
+                    if YOUR_FAMILY_NAME in name:
+                        name = f"**{name}**"
+                    author_strs.append(name)
+                author_text = ", ".join(author_strs[:-1]) + ", & " + author_strs[-1] if len(author_strs) > 1 else author_strs[0]
+
+            doi_url = f"https://doi.org/{doi}"
+            citation = f"{author_text} ({year}). *{title}*. bioRxiv. {doi_url}"
+            entries.append((year, citation))
 
     # Sort and format
     sorted_entries = sorted(entries, key=lambda x: str(x[0]), reverse=True)
