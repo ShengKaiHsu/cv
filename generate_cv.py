@@ -5,7 +5,8 @@ from datetime import date
 # USER CONFIG: Update these with your actual info
 NAME = "Sheng-Kai Hsu"
 EMAIL = "sh2246@cornell.edu"
-AFFILIATION = "Postdoc, Institute for Genomic Diversity, Cornell University"
+TITLE = "Postdoc"
+AFFILIATION = "Institute for Genomic Diversity, Cornell University"
 ORCID_ID = "0000-0002-6942-7163"  # replace with yours
 
 # For bolding your name
@@ -177,6 +178,7 @@ with open("cv_template.md") as f:
 cv_filled = (
     template.replace("{{NAME}}", NAME)
             .replace("{{EMAIL}}", EMAIL)
+            .replace("{{TITLE}}", TITLE)
             .replace("{{AFFILIATION}}", AFFILIATION)
             .replace("{{ORCID}}", ORCID_ID)
             .replace("{{PUBLICATIONS}}", fetch_publications(ORCID_ID))
