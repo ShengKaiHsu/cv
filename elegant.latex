@@ -6,6 +6,7 @@
 \usepackage{hyperref}
 \usepackage{setspace}
 \usepackage{parskip}
+\usepackage{xfp}
 
 \setlength{\parindent}{0pt}
 \titleformat{\section}{\large\bfseries}{}{0em}{}
