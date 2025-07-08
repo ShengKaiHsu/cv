@@ -22,25 +22,33 @@
 
 2. Thorhölludottir, D.A.V., **Hsu, S.**, Barghi, N., Mallard, F., Nolte, V., & Schlötterer, C. (2025). *Reduced Parallel Gene Expression Evolution With Increasing Genetic Divergence—A Hallmark of Polygenic Adaptation*. *Molecular Ecology*, *34*(12). https://doi.org/10.1111/mec.17803
 
-3. Lai, W., **Hsu, S.**, Futschik, A., & Schlötterer, C. (2025). *Pleiotropy increases parallel selection signatures during adaptation from standing genetic variation*. *eLife*, *13*. https://doi.org/10.7554/eLife.102321.3
+3. Unknown Author (2025). *Grass Rhizome Proteomics Reveals Convergent Freezing-Tolerance Strategies*. bioRxiv. https://doi.org/10.1101/2025.05.15.654294
 
-4. **Hsu, S.**, Lai, W., Novak, J., Lehner, F., Jakšić, A.M., Versace, E., & Schlötterer, C. (2024). *Reproductive isolation arises during laboratory adaptation to a novel hot environment*. *Genome Biology*, *25*(1). https://doi.org/10.1186/s13059-024-03285-9
+4. Unknown Author (2025). *Extensive modulation of a conserved<i>cis</i>-regulatory code across 589 grass species*. bioRxiv. https://doi.org/10.1101/2025.04.23.650228
 
-5. Buchner, S., **Hsu, S.**, Nolte, V., Otte, K.A., & Schlötterer, C. (2023). *Effects of larval crowding on the transcriptome of <i>Drosophila simulans</i>*. *Evolutionary Applications*, *16*(10), 1671-1679. https://doi.org/10.1111/eva.13592
+5. Lai, W., **Hsu, S.**, Futschik, A., & Schlötterer, C. (2025). *Pleiotropy increases parallel selection signatures during adaptation from standing genetic variation*. *eLife*, *13*. https://doi.org/10.7554/eLife.102321.3
 
-6. **Hsu, S.**, Belmouaden, C., Nolte, V., & Schlötterer, C. (2020). *Parallel gene expression evolution in natural and laboratory evolved populations*. *Molecular Ecology*, *30*(4), 884-894. https://doi.org/10.1111/mec.15649
+6. Unknown Author (2025). *Extensive genome evolution distinguishes maize within a stable tribe of grasses*. bioRxiv. https://doi.org/10.1101/2025.01.22.633974
 
-7. Jakšić, A.M., Karner, J., Nolte, V., **Hsu, S.**, Barghi, N., Mallard, F., Otte, K.A., Svečnjak, L., Senti, K., & Schlötterer, C. (2020). *Neuronal Function and Dopamine Signaling Evolve at High Temperature in Drosophila*. *Molecular Biology and Evolution*, *37*(9), 2630-2640. https://doi.org/10.1093/molbev/msaa116
+7. **Hsu, S.**, Lai, W., Novak, J., Lehner, F., Jakšić, A.M., Versace, E., & Schlötterer, C. (2024). *Reproductive isolation arises during laboratory adaptation to a novel hot environment*. *Genome Biology*, *25*(1). https://doi.org/10.1186/s13059-024-03285-9
 
-8. **Hsu, S.**, Jakšić, A.M., Nolte, V., Lirakis, M., Kofler, R., Barghi, N., Versace, E., & Schlötterer, C. (2020). *Rapid sex-specific adaptation to high temperature in Drosophila*. *eLife*, *9*. https://doi.org/10.7554/eLife.53237
+8. Buchner, S., **Hsu, S.**, Nolte, V., Otte, K.A., & Schlötterer, C. (2023). *Effects of larval crowding on the transcriptome of <i>Drosophila simulans</i>*. *Evolutionary Applications*, *16*(10), 1671-1679. https://doi.org/10.1111/eva.13592
 
-9. **Hsu, S.**, Jakšić, A.M., Nolte, V., Barghi, N., Mallard, F., Otte, K.A., & Schlötterer, C. (2019). *A 24 h Age Difference Causes Twice as Much Gene Expression Divergence as 100 Generations of Adaptation to a Novel Environment*. *Genes*, *10*(2), 89. https://doi.org/10.3390/genes10020089
+9. Unknown Author (2023). *Fishing for a reelGene: evaluating gene models with evolution and machine learning*. bioRxiv. https://doi.org/10.1101/2023.09.19.558246
 
-10. Lin, P., Tsai, Y., **Hsu, S.**, Ou, J., Liao, C., & Tung, C. (2018). *Identification of natural variants affecting chlorophyll content dynamics during rice seedling development*. *Plant Breeding*, *137*(3), 355-363. https://doi.org/10.1111/pbr.12584
+10. **Hsu, S.**, Belmouaden, C., Nolte, V., & Schlötterer, C. (2020). *Parallel gene expression evolution in natural and laboratory evolved populations*. *Molecular Ecology*, *30*(4), 884-894. https://doi.org/10.1111/mec.15649
 
-11. **Hsu, S.**, & Tung, C. (2017). *RNA-Seq Analysis of Diverse Rice Genotypes to Identify the Genes Controlling Coleoptile Growth during Submerged Germination*. *Frontiers in Plant Science*, *8*. https://doi.org/10.3389/fpls.2017.00762
+11. Jakšić, A.M., Karner, J., Nolte, V., **Hsu, S.**, Barghi, N., Mallard, F., Otte, K.A., Svečnjak, L., Senti, K., & Schlötterer, C. (2020). *Neuronal Function and Dopamine Signaling Evolve at High Temperature in Drosophila*. *Molecular Biology and Evolution*, *37*(9), 2630-2640. https://doi.org/10.1093/molbev/msaa116
 
-12. **Hsu, S.**, & Tung, C. (2015). *Genetic Mapping of Anaerobic Germination-Associated QTLs Controlling Coleoptile Elongation in Rice*. *Rice*, *8*(1). https://doi.org/10.1186/s12284-015-0072-3
+12. **Hsu, S.**, Jakšić, A.M., Nolte, V., Lirakis, M., Kofler, R., Barghi, N., Versace, E., & Schlötterer, C. (2020). *Rapid sex-specific adaptation to high temperature in Drosophila*. *eLife*, *9*. https://doi.org/10.7554/eLife.53237
+
+13. **Hsu, S.**, Jakšić, A.M., Nolte, V., Barghi, N., Mallard, F., Otte, K.A., & Schlötterer, C. (2019). *A 24 h Age Difference Causes Twice as Much Gene Expression Divergence as 100 Generations of Adaptation to a Novel Environment*. *Genes*, *10*(2), 89. https://doi.org/10.3390/genes10020089
+
+14. Lin, P., Tsai, Y., **Hsu, S.**, Ou, J., Liao, C., & Tung, C. (2018). *Identification of natural variants affecting chlorophyll content dynamics during rice seedling development*. *Plant Breeding*, *137*(3), 355-363. https://doi.org/10.1111/pbr.12584
+
+15. **Hsu, S.**, & Tung, C. (2017). *RNA-Seq Analysis of Diverse Rice Genotypes to Identify the Genes Controlling Coleoptile Growth during Submerged Germination*. *Frontiers in Plant Science*, *8*. https://doi.org/10.3389/fpls.2017.00762
+
+16. **Hsu, S.**, & Tung, C. (2015). *Genetic Mapping of Anaerobic Germination-Associated QTLs Controlling Coleoptile Elongation in Rice*. *Rice*, *8*(1). https://doi.org/10.1186/s12284-015-0072-3
 
 ---
 
