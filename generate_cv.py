@@ -19,7 +19,8 @@ def fetch_publications(orcid_id):
     response = requests.get(url, headers=headers)
     works = response.json()["group"]
 
-    entries = []
+    journal_entries = []
+    preprint_entries = []
     seen_dois = set()
 
     for group in works:
@@ -31,6 +32,7 @@ def fetch_publications(orcid_id):
             title = summary.get("title", {}).get("title", {}).get("value", "Untitled")
             year = summary.get("publication-date", {}).get("year", {}).get("value", "n.d.")
 
+            # Extract DOI
             doi = None
             external_ids = summary.get("external-ids", {}).get("external-id", [])
             for eid in external_ids:
@@ -41,6 +43,8 @@ def fetch_publications(orcid_id):
             if not doi or doi in seen_dois:
                 continue
             seen_dois.add(doi)
+
+            entry_list = journal_entries if work_type == "journal-article" else preprint_entries
 
             # === Try Crossref ===
             try:
@@ -78,13 +82,13 @@ def fetch_publications(orcid_id):
                     citation += f", {pages}"
                 citation += f". {doi_url}"
 
-                entries.append((pub_year, citation))
-                continue  # Success, go to next
+                entry_list.append((pub_year, citation))
+                continue
 
             except Exception:
-                pass  # fallback to next source
+                pass
 
-            # === Try DataCite ===
+            # === Try DataCite (e.g., bioRxiv) ===
             try:
                 r = requests.get(f"https://api.datacite.org/dois/{doi}")
                 if r.status_code != 200:
@@ -109,31 +113,43 @@ def fetch_publications(orcid_id):
                 author_text = ", ".join(author_strs[:-1]) + ", & " + author_strs[-1] if len(author_strs) > 1 else author_strs[0]
                 doi_url = f"https://doi.org/{doi}"
                 citation = f"{author_text} ({pub_year}). *{title}*. *{journal}*. {doi_url}"
-                entries.append((pub_year, citation))
-                continue  # Success
+
+                entry_list.append((pub_year, citation))
+                continue
 
             except Exception:
-                pass  # fallback to ORCID metadata
+                pass
 
-            # === Final Fallback: Use ORCID info only ===
+            # === Final fallback using ORCID contributor names ===
             contributors = summary.get("contributors", {}).get("contributor", [])
-            author_text = "Unknown Author"
-            if contributors:
-                author_strs = []
-                for a in contributors:
-                    name = a.get("credit-name", {}).get("value", "")
-                    if YOUR_FAMILY_NAME in name:
-                        name = f"**{name}**"
-                    author_strs.append(name)
-                author_text = ", ".join(author_strs[:-1]) + ", & " + author_strs[-1] if len(author_strs) > 1 else author_strs[0]
+            author_strs = []
+            for c in contributors:
+                credit = c.get("credit-name", {}).get("value", "")
+                if not credit:
+                    continue
+                if YOUR_FAMILY_NAME in credit:
+                    credit = f"**{credit}**"
+                author_strs.append(credit)
+            if not author_strs:
+                author_strs = ["Unknown Author"]
+            author_text = ", ".join(author_strs[:-1]) + ", & " + author_strs[-1] if len(author_strs) > 1 else author_strs[0]
 
             doi_url = f"https://doi.org/{doi}"
             citation = f"{author_text} ({year}). *{title}*. bioRxiv. {doi_url}"
-            entries.append((year, citation))
+            entry_list.append((year, citation))
 
-    # Sort and format
-    sorted_entries = sorted(entries, key=lambda x: str(x[0]), reverse=True)
-    return "\n\n".join(f"{i+1}. {entry}" for i, (_, entry) in enumerate(sorted_entries))
+    # === Format final output ===
+    def format_section(title, entries):
+        if not entries:
+            return ""
+        sorted_entries = sorted(entries, key=lambda x: str(x[0]), reverse=True)
+        formatted = [f"{i+1}. {entry}" for i, (_, entry) in enumerate(sorted_entries)]
+        return f"## {title}\n\n" + "\n\n".join(formatted) + "\n"
+
+    output = []
+    output.append(format_section("Peer-reviewed Publications", journal_entries))
+    output.append(format_section("Preprints", preprint_entries))
+    return "\n".join(output)
 
 # === CV TEMPLATE MERGE ===
 
