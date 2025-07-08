@@ -13,6 +13,15 @@ YOUR_INITIALS = "S."  # Set to "W" or "W.-Y" depending on how it's recorded
 
 # === MAIN FUNCTIONS ===
 
+import requests
+
+def format_author(family, given, bold_if_matches=False):
+    initials = "-".join([part[0] for part in given.split("-") if part]) + "."
+    name = f"{family}, {initials}"
+    if bold_if_matches and family.lower() == YOUR_FAMILY_NAME.lower() and YOUR_INITIALS.lower().replace("-", "") in initials.lower().replace("-", ""):
+        return f"**{name}**"
+    return name
+
 def fetch_publications(orcid_id):
     headers = {"Accept": "application/json"}
     url = f"https://pub.orcid.org/v3.0/{orcid_id}/works"
@@ -33,7 +42,6 @@ def fetch_publications(orcid_id):
             year = summary.get("publication-date", {}).get("year", {}).get("value", "n.d.")
             put_code = summary.get("put-code")
 
-            # Extract DOI
             doi = None
             external_ids = summary.get("external-ids", {}).get("external-id", [])
             for eid in external_ids:
@@ -59,13 +67,12 @@ def fetch_publications(orcid_id):
                 for a in authors:
                     given = a.get("given", "")
                     family = a.get("family", "")
-                    initials = "".join([g[0] + "." for g in given.split()]) if given else ""
-                    name_str = f"{family}, {initials}"
-                    if family == YOUR_FAMILY_NAME and YOUR_INITIALS in initials:
-                        name_str = f"**{name_str}**"
+                    name_str = format_author(family, given, bold_if_matches=True)
                     author_strs.append(name_str)
 
-                author_text = ", ".join(author_strs[:-1]) + ", & " + author_strs[-1] if len(author_strs) > 1 else author_strs[0]
+                display_authors = author_strs[:10] + ["*et al.*"] if len(author_strs) > 10 else author_strs
+                author_text = ", ".join(display_authors[:-1]) + ", & " + display_authors[-1] if len(display_authors) > 1 else display_authors[0]
+
                 pub_year = metadata.get("issued", {}).get("date-parts", [[year]])[0][0]
                 title = metadata.get("title", [""])[0]
                 journal = metadata.get("container-title", [""])[0]
@@ -105,13 +112,12 @@ def fetch_publications(orcid_id):
                 for a in creators:
                     family = a.get("familyName", "")
                     given = a.get("givenName", "")
-                    initials = "".join([g[0] + "." for g in given.split()]) if given else ""
-                    name_str = f"{family}, {initials}"
-                    if family == YOUR_FAMILY_NAME and YOUR_INITIALS in initials:
-                        name_str = f"**{name_str}**"
+                    name_str = format_author(family, given, bold_if_matches=True)
                     author_strs.append(name_str)
 
-                author_text = ", ".join(author_strs[:-1]) + ", & " + author_strs[-1] if len(author_strs) > 1 else author_strs[0]
+                display_authors = author_strs[:10] + ["*et al.*"] if len(author_strs) > 10 else author_strs
+                author_text = ", ".join(display_authors[:-1]) + ", & " + display_authors[-1] if len(display_authors) > 1 else display_authors[0]
+
                 doi_url = f"https://doi.org/{doi}"
                 citation = f"{author_text} ({pub_year}). *{title}*. *{journal}*. {doi_url}"
                 entry_list.append((pub_year, citation))
@@ -120,7 +126,7 @@ def fetch_publications(orcid_id):
             except Exception:
                 pass
 
-            # === Final fallback: query full ORCID work for contributors ===
+            # === Final fallback: ORCID full work
             try:
                 work_url = f"https://pub.orcid.org/v3.0/{orcid_id}/work/{put_code}"
                 r = requests.get(work_url, headers=headers)
@@ -136,21 +142,31 @@ def fetch_publications(orcid_id):
                     if role != "author":
                         continue
                     name = c.get("credit-name", {}).get("value", "")
-                    if YOUR_FAMILY_NAME in name:
-                        name = f"**{name}**"
-                    author_strs.append(name)
+                    if not name:
+                        continue
+                    parts = name.strip().split()
+                    if len(parts) >= 2:
+                        given = " ".join(parts[:-1])
+                        family = parts[-1]
+                    else:
+                        given = ""
+                        family = name
+                    name_str = format_author(family.strip(), given.strip(), bold_if_matches=True)
+                    author_strs.append(name_str)
 
                 if not author_strs:
                     author_strs = ["Unknown Author"]
 
-                author_text = ", ".join(author_strs[:-1]) + ", & " + author_strs[-1] if len(author_strs) > 1 else author_strs[0]
+                display_authors = author_strs[:10] + ["*et al.*"] if len(author_strs) > 10 else author_strs
+                author_text = ", ".join(display_authors[:-1]) + ", & " + display_authors[-1] if len(display_authors) > 1 else display_authors[0]
+
                 citation = f"{author_text} ({year}). *{title}*. bioRxiv. https://doi.org/{doi}"
                 entry_list.append((year, citation))
 
             except Exception as e:
                 print(f"Could not retrieve full ORCID work {put_code}: {e}")
 
-    # === Format final output ===
+    # === Format output
     def format_section(title, entries):
         if not entries:
             return ""
