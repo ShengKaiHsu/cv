@@ -104,7 +104,7 @@ def fetch_publications(orcid_id):
                 pages = metadata.get("page", "")
                 doi_url = f"https://doi.org/{doi}"
 
-                citation = f"{author_text} ({pub_year}). *{title}*. *{journal}*"
+                citation = f"crossref:{author_text} ({pub_year}). *{title}*. *{journal}*"
                 if volume:
                     citation += f", *{volume}*"
                     if issue:
@@ -142,7 +142,7 @@ def fetch_publications(orcid_id):
                 display_authors = author_strs[:10] + ["*et al.*"] if len(author_strs) > 10 else author_strs
                 author_text = ", ".join(display_authors[:-1]) + ", & " + display_authors[-1] if len(display_authors) > 1 else display_authors[0]
 
-                citation = f"{author_text} ({pub_year}). *{title}*. *{journal}*. https://doi.org/{doi}"
+                citation = f"Datacite: {author_text} ({pub_year}). *{title}*. *{journal}*. https://doi.org/{doi}"
                 entry_list.append((pub_year, citation))
                 continue
             except Exception:
