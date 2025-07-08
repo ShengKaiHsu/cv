@@ -15,13 +15,25 @@ YOUR_INITIALS = "S."  # Set to "W" or "W.-Y" depending on how it's recorded
 
 import requests
 
+def extract_initials(given):
+    """
+    Turn "Wei-Yun" into "W.-Y.", "John Michael" into "J.M.", etc.
+    """
+    # Split on space or hyphen, keep only alphabetic parts
+    parts = re.split(r"[\s\-]+", given)
+    initials = ".".join(p[0] for p in parts if p and p[0].isalpha()) + "."
+    return initials
+
 def format_author(family, given, bold_if_matches=False):
-    initials = "-".join([part[0] for part in given.split("-") if part]) + "."
+    initials = extract_initials(given)
     name = f"{family}, {initials}"
-    if bold_if_matches and family.lower() == YOUR_FAMILY_NAME.lower() and YOUR_INITIALS.lower().replace("-", "") in initials.lower().replace("-", ""):
+    # Bold if matches YOUR_FAMILY_NAME and YOUR_INITIALS
+    simplified = initials.replace(".", "").lower()
+    target = YOUR_INITIALS.replace(".", "").lower()
+    if bold_if_matches and family.lower() == YOUR_FAMILY_NAME.lower() and target in simplified:
         return f"**{name}**"
     return name
-
+    
 def fetch_publications(orcid_id):
     headers = {"Accept": "application/json"}
     url = f"https://pub.orcid.org/v3.0/{orcid_id}/works"
