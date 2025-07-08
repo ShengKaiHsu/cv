@@ -16,24 +16,20 @@ YOUR_INITIALS = "S."  # Set to "W" or "W.-Y" depending on how it's recorded
 import requests
 
 def extract_initials(given):
-    """
-    Turn "Wei-Yun" into "W.-Y.", "John Michael" into "J.M.", etc.
-    """
-    # Split on space or hyphen, keep only alphabetic parts
-    parts = re.split(r"[\s\-]+", given)
+    parts = re.split(r"[\s\-]+", given.strip())
     initials = ".".join(p[0] for p in parts if p and p[0].isalpha()) + "."
     return initials
 
 def format_author(family, given, bold_if_matches=False):
     initials = extract_initials(given)
     name = f"{family}, {initials}"
-    # Bold if matches YOUR_FAMILY_NAME and YOUR_INITIALS
-    simplified = initials.replace(".", "").lower()
-    target = YOUR_INITIALS.replace(".", "").lower()
-    if bold_if_matches and family.lower() == YOUR_FAMILY_NAME.lower() and target in simplified:
-        return f"**{name}**"
+    if bold_if_matches:
+        target = YOUR_INITIALS.replace(".", "").lower()
+        actual = initials.replace(".", "").lower()
+        if family.lower() == YOUR_FAMILY_NAME.lower() and target in actual:
+            return f"**{name}**"
     return name
-    
+
 def fetch_publications(orcid_id):
     headers = {"Accept": "application/json"}
     url = f"https://pub.orcid.org/v3.0/{orcid_id}/works"
@@ -54,9 +50,9 @@ def fetch_publications(orcid_id):
             year = summary.get("publication-date", {}).get("year", {}).get("value", "n.d.")
             put_code = summary.get("put-code")
 
+            # Get DOI
             doi = None
-            external_ids = summary.get("external-ids", {}).get("external-id", [])
-            for eid in external_ids:
+            for eid in summary.get("external-ids", {}).get("external-id", []):
                 if eid.get("external-id-type") == "doi":
                     doi = eid.get("external-id-value")
                     break
@@ -75,13 +71,10 @@ def fetch_publications(orcid_id):
                 metadata = r.json()["message"]
 
                 authors = metadata.get("author", [])
-                author_strs = []
-                for a in authors:
-                    given = a.get("given", "")
-                    family = a.get("family", "")
-                    name_str = format_author(family, given, bold_if_matches=True)
-                    author_strs.append(name_str)
-
+                author_strs = [
+                    format_author(a.get("family", ""), a.get("given", ""), bold_if_matches=True)
+                    for a in authors
+                ]
                 display_authors = author_strs[:10] + ["*et al.*"] if len(author_strs) > 10 else author_strs
                 author_text = ", ".join(display_authors[:-1]) + ", & " + display_authors[-1] if len(display_authors) > 1 else display_authors[0]
 
@@ -104,11 +97,10 @@ def fetch_publications(orcid_id):
 
                 entry_list.append((pub_year, citation))
                 continue
-
             except Exception:
                 pass
 
-            # === Try DataCite (e.g., bioRxiv) ===
+            # === Try DataCite (bioRxiv, etc.) ===
             try:
                 r = requests.get(f"https://api.datacite.org/dois/{doi}")
                 if r.status_code != 200:
@@ -120,25 +112,20 @@ def fetch_publications(orcid_id):
                 pub_year = dc.get("publicationYear", year)
                 journal = dc.get("container-title", "Preprint") or "Preprint"
 
-                author_strs = []
-                for a in creators:
-                    family = a.get("familyName", "")
-                    given = a.get("givenName", "")
-                    name_str = format_author(family, given, bold_if_matches=True)
-                    author_strs.append(name_str)
-
+                author_strs = [
+                    format_author(c.get("familyName", ""), c.get("givenName", ""), bold_if_matches=True)
+                    for c in creators
+                ]
                 display_authors = author_strs[:10] + ["*et al.*"] if len(author_strs) > 10 else author_strs
                 author_text = ", ".join(display_authors[:-1]) + ", & " + display_authors[-1] if len(display_authors) > 1 else display_authors[0]
 
-                doi_url = f"https://doi.org/{doi}"
-                citation = f"{author_text} ({pub_year}). *{title}*. *{journal}*. {doi_url}"
+                citation = f"{author_text} ({pub_year}). *{title}*. *{journal}*. https://doi.org/{doi}"
                 entry_list.append((pub_year, citation))
                 continue
-
             except Exception:
                 pass
 
-            # === Final fallback: ORCID full work
+            # === Fallback: ORCID full work
             try:
                 work_url = f"https://pub.orcid.org/v3.0/{orcid_id}/work/{put_code}"
                 r = requests.get(work_url, headers=headers)
@@ -154,8 +141,6 @@ def fetch_publications(orcid_id):
                     if role != "author":
                         continue
                     name = c.get("credit-name", {}).get("value", "")
-                    if not name:
-                        continue
                     parts = name.strip().split()
                     if len(parts) >= 2:
                         given = " ".join(parts[:-1])
@@ -174,11 +159,10 @@ def fetch_publications(orcid_id):
 
                 citation = f"{author_text} ({year}). *{title}*. bioRxiv. https://doi.org/{doi}"
                 entry_list.append((year, citation))
-
             except Exception as e:
                 print(f"Could not retrieve full ORCID work {put_code}: {e}")
 
-    # === Format output
+    # === Format final output
     def format_section(title, entries):
         if not entries:
             return ""
@@ -190,7 +174,7 @@ def fetch_publications(orcid_id):
     output.append(format_section("Peer-reviewed Publications", journal_entries))
     output.append(format_section("Preprints", preprint_entries))
     return "\n".join(output)
-
+    
 # === CV TEMPLATE MERGE ===
 
 with open("cv_template.md") as f:
