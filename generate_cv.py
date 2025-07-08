@@ -1,4 +1,5 @@
 import requests
+import re
 from datetime import date
 
 # USER CONFIG: Update these with your actual info
@@ -13,15 +14,17 @@ YOUR_INITIALS = "S.-K."  # Set to "W" or "W.-Y" depending on how it's recorded
 
 # === MAIN FUNCTIONS ===
 
-import requests
-
 def extract_initials(given):
+    if not given or not isinstance(given, str):
+        return ""
     parts = re.split(r"[\s\-]+", given.strip())
-    initials = ".".join(p[0] for p in parts if p and p[0].isalpha()) + "."
-    return initials
+    initials = ".".join(p[0] for p in parts if p and p[0].isalpha())
+    return initials + "." if initials else ""
 
 def format_author(family, given, bold_if_matches=False):
     initials = extract_initials(given)
+    if not family:
+        return "Unknown Author"
     name = f"{family}, {initials}"
     if bold_if_matches:
         target = YOUR_INITIALS.replace(".", "").lower()
@@ -50,7 +53,6 @@ def fetch_publications(orcid_id):
             year = summary.get("publication-date", {}).get("year", {}).get("value", "n.d.")
             put_code = summary.get("put-code")
 
-            # Get DOI
             doi = None
             for eid in summary.get("external-ids", {}).get("external-id", []):
                 if eid.get("external-id-type") == "doi":
@@ -71,10 +73,15 @@ def fetch_publications(orcid_id):
                 metadata = r.json()["message"]
 
                 authors = metadata.get("author", [])
-                author_strs = [
-                    format_author(a.get("family", ""), a.get("given", ""), bold_if_matches=True)
-                    for a in authors
-                ]
+                author_strs = []
+                for a in authors:
+                    given = a.get("given", "")
+                    family = a.get("family", "")
+                    if not given or not family:
+                        print(f"⚠️ Missing author info in Crossref: {title}, DOI: {doi}")
+                    name_str = format_author(family, given, bold_if_matches=True)
+                    author_strs.append(name_str)
+
                 display_authors = author_strs[:10] + ["*et al.*"] if len(author_strs) > 10 else author_strs
                 author_text = ", ".join(display_authors[:-1]) + ", & " + display_authors[-1] if len(display_authors) > 1 else display_authors[0]
 
@@ -100,7 +107,7 @@ def fetch_publications(orcid_id):
             except Exception:
                 pass
 
-            # === Try DataCite (bioRxiv, etc.) ===
+            # === Try DataCite ===
             try:
                 r = requests.get(f"https://api.datacite.org/dois/{doi}")
                 if r.status_code != 200:
@@ -112,10 +119,15 @@ def fetch_publications(orcid_id):
                 pub_year = dc.get("publicationYear", year)
                 journal = dc.get("container-title", "Preprint") or "Preprint"
 
-                author_strs = [
-                    format_author(c.get("familyName", ""), c.get("givenName", ""), bold_if_matches=True)
-                    for c in creators
-                ]
+                author_strs = []
+                for c in creators:
+                    given = c.get("givenName", "")
+                    family = c.get("familyName", "")
+                    if not given or not family:
+                        print(f"⚠️ Missing author info in DataCite: {title}, DOI: {doi}")
+                    name_str = format_author(family, given, bold_if_matches=True)
+                    author_strs.append(name_str)
+
                 display_authors = author_strs[:10] + ["*et al.*"] if len(author_strs) > 10 else author_strs
                 author_text = ", ".join(display_authors[:-1]) + ", & " + display_authors[-1] if len(display_authors) > 1 else display_authors[0]
 
@@ -125,7 +137,7 @@ def fetch_publications(orcid_id):
             except Exception:
                 pass
 
-            # === Fallback: ORCID full work
+            # === Fallback ORCID contributor list ===
             try:
                 work_url = f"https://pub.orcid.org/v3.0/{orcid_id}/work/{put_code}"
                 r = requests.get(work_url, headers=headers)
@@ -137,9 +149,6 @@ def fetch_publications(orcid_id):
 
                 author_strs = []
                 for c in contribs:
-                    role = c.get("contributor-attributes", {}).get("contributor-role", "").lower()
-                    if role != "author":
-                        continue
                     name = c.get("credit-name", {}).get("value", "")
                     parts = name.strip().split()
                     if len(parts) >= 2:
@@ -148,6 +157,8 @@ def fetch_publications(orcid_id):
                     else:
                         given = ""
                         family = name
+                    if not given or not family:
+                        print(f"⚠️ Missing author info in ORCID fallback: {title}, DOI: {doi}")
                     name_str = format_author(family.strip(), given.strip(), bold_if_matches=True)
                     author_strs.append(name_str)
 
@@ -155,14 +166,14 @@ def fetch_publications(orcid_id):
                     author_strs = ["Unknown Author"]
 
                 display_authors = author_strs[:10] + ["*et al.*"] if len(author_strs) > 10 else author_strs
-                author_text = ", ".join(display_authors[:-1]) + ", & " + display_authors[-1] if len(display_authors) > 1 else display_authors[0]
+                author_text = ", ".join(display_authors[:-1]) + ", & " + display_authors[-1] if len(display_authors) > 1 else author_strs[0]
 
                 citation = f"{author_text} ({year}). *{title}*. bioRxiv. https://doi.org/{doi}"
                 entry_list.append((year, citation))
+
             except Exception as e:
                 print(f"Could not retrieve full ORCID work {put_code}: {e}")
 
-    # === Format final output
     def format_section(title, entries):
         if not entries:
             return ""
@@ -174,7 +185,7 @@ def fetch_publications(orcid_id):
     output.append(format_section("Peer-reviewed Publications", journal_entries))
     output.append(format_section("Preprints", preprint_entries))
     return "\n".join(output)
-    
+
 # === CV TEMPLATE MERGE ===
 
 with open("cv_template.md") as f:
