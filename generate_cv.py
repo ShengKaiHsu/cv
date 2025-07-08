@@ -17,9 +17,20 @@ YOUR_INITIALS = "S.-K."  # Set to "W" or "W.-Y" depending on how it's recorded
 def extract_initials(given):
     if not given or not isinstance(given, str):
         return ""
-    parts = re.split(r"[\s\-]+", given.strip())
-    initials = ".".join(p[0] for p in parts if p and p[0].isalpha())
-    return initials + "." if initials else ""
+    
+    # Split by spaces only, preserve hyphenated parts
+    space_parts = given.strip().split()
+    initials = []
+
+    for part in space_parts:
+        if "-" in part:
+            hyphen_parts = part.split("-")
+            initial_group = "-".join(p[0] for p in hyphen_parts if p)
+            initials.append(initial_group)
+        else:
+            initials.append(part[0])
+
+    return ".".join(initials) + "."
 
 def format_author(family, given, bold_if_matches=False):
     initials = extract_initials(given)
