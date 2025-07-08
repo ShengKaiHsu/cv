@@ -32,7 +32,7 @@
 2021 **Polygenic adaptation drives rapid evolution of pre- and post-mating reproductive isolation.** *Poster presentation*, The 62nd Annual Drosophila Research Conference, March 20-24, Online  
 2019 **Sex-specific adaptation to high temperature in Drosophila.** *Oral presentation*, ESEB 2019, August 19-24, Turku, Finland  
 2018 **Sexually antagonistic gene expression evolution in Drosophila simulans populations adapting to a novel thermal environment.** *Oral presentation*, PopGroup 51, January 3-6, Bristol, UK  
-2017 **Genetics and molecular analysis of anaerobic germination in rice.** *Poster presentation", Plant and Animal Genomes 25, January 14-18, San Diego, CA, USA   
+2017 **Genetics and molecular analysis of anaerobic germination in rice.** *Poster presentation*, Plant and Animal Genomes 25, January 14-18, San Diego, CA, USA   
 2013 **Identification of quantitative trait loci (QTL) associated with anaerobic germination of rice (Oryza Sativa).** *Poster presentation*, The 7th International Rice Genetics Symposium, November 4-8, Manila, Philippines  
 
 
