@@ -93,7 +93,7 @@ def fetch_publications(orcid_id):
                     name_str = format_author(family, given, bold_if_matches=True)
                     author_strs.append(name_str)
 
-                display_authors = author_strs[:10] + ["*et al.*"] if len(author_strs) > 10 else author_strs
+                display_authors = author_strs[:10] + ["*et al.*"] if len(author_strs) > 20 else author_strs
                 author_text = ", ".join(display_authors[:-1]) + ", & " + display_authors[-1] if len(display_authors) > 1 else display_authors[0]
 
                 pub_year = metadata.get("issued", {}).get("date-parts", [[year]])[0][0]
