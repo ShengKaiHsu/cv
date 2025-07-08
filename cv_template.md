@@ -1,8 +1,10 @@
+\begin{center}  
 # {{NAME}}
 
 **Email:** {{EMAIL}}  
 **Affiliation:** {{AFFILIATION}}  
 **ORCID:** [{{ORCID}}](https://orcid.org/{{ORCID}})
+\end{center}  
 
 ---
 
@@ -17,6 +19,7 @@
 | 2014–2015    | M.Sc., Department of Agronomy, National Taiwan University  |
 |              | *Advisor: Chih-Wei Tung* |
 | 2010–2014    | B.Sc., Department of Agronomy, National Taiwan University                         |
+
 ---
 
 # Publications
