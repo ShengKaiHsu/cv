@@ -48,13 +48,15 @@
 
 ## Preprints
 
-1. Oren, E., Zhai, J., Rooney, T., Angelovici, R., Hale, C., Brindisi, L.J., **Hsu, S-K.**, Gault, C., Hua, J., La, T., Lepak, N., Fu, Q., Buckler, E., & Romay, C. (2025). **Grass Rhizome Proteomics Reveals Convergent Freezing-Tolerance Strategies**. *bioRxiv.* https://doi.org/10.1101/2025.05.15.654294
+1. Zhai, J., Gokaslan, A., **Hsu, S-K.**, Chen, S-P., Liu, Z-Y., Marroquin, E., Czech, E., Cannon, B., Berthel, A., Romay, M.C., Pennell, M., Kuleshov, V., & Buckler, E.S. (2025). **PlantCAD2: A Long-Context DNA Language Model for Cross-Species Functional Annotation in Angiosperms**. *bioRxiv.* https://doi.org/10.1101/2025.08.27.672609
 
-2. Hale, C.O., **Hsu, S-K.**, Zhai, J., Schulz, A.J., Aubuchon-Elder, T., Costa-Neto, G., Gelfond, A., El-Walid, M., Hufford, M., Kellogg, E.A., La, T., Marand, A.P., Seetharam, A.S., Scheben, A., Stitzer, M., Wrightsman, T., Romay, M.C., & Buckler, E.S. (2025). **Extensive modulation of a conserved <i>cis</i> -regulatory code across 589 grass species**. *bioRxiv.* https://doi.org/10.1101/2025.04.23.650228
+2. Oren, E., Zhai, J., Rooney, T., Angelovici, R., Hale, C., Brindisi, L.J., **Hsu, S-K.**, Gault, C., Hua, J., La, T., Lepak, N., Fu, Q., Buckler, E., & Romay, C. (2025). **Grass Rhizome Proteomics Reveals Convergent Freezing-Tolerance Strategies**. *bioRxiv.* https://doi.org/10.1101/2025.05.15.654294
 
-3. Stitzer, M.C., Seetharam, A.S., Scheben, A., **Hsu, S-K.**, Schulz, A.J., AuBuchon-Elder, T.M., El-Walid, M., Ferebee, T.H., Hale, C.O., La, T., & *et al.* (2025). **Extensive genome evolution distinguishes maize within a stable tribe of grasses**. *bioRxiv.* https://doi.org/10.1101/2025.01.22.633974
+3. Hale, C.O., **Hsu, S-K.**, Zhai, J., Schulz, A.J., Aubuchon-Elder, T., Costa-Neto, G., Gelfond, A., El-Walid, M., Hufford, M., Kellogg, E.A., La, T., Marand, A.P., Seetharam, A.S., Scheben, A., Stitzer, M., Wrightsman, T., Romay, M.C., & Buckler, E.S. (2025). **Extensive modulation of a conserved <i>cis</i> -regulatory code across 589 grass species**. *bioRxiv.* https://doi.org/10.1101/2025.04.23.650228
 
-4. Schulz, A.J., Zhai, J., AuBuchon-Elder, T., El-Walid, M., Ferebee, T.H., Gilmore, E.H., Hufford, M.B., Johnson, L.C., Kellogg, E.A., La, T., Long, E., Miller, Z.R., Romay, M.C., Seetharam, A.S., Stitzer, M.C., Wrightsman, T., Buckler, E.S., Monier, B., & **Hsu, S-K.** (2023). **Fishing for a reelGene: evaluating gene models with evolution and machine learning**. *bioRxiv.* https://doi.org/10.1101/2023.09.19.558246
+4. Stitzer, M.C., Seetharam, A.S., Scheben, A., **Hsu, S-K.**, Schulz, A.J., AuBuchon-Elder, T.M., El-Walid, M., Ferebee, T.H., Hale, C.O., La, T., & *et al.* (2025). **Extensive genome evolution distinguishes maize within a stable tribe of grasses**. *bioRxiv.* https://doi.org/10.1101/2025.01.22.633974
+
+5. Schulz, A.J., Zhai, J., AuBuchon-Elder, T., El-Walid, M., Ferebee, T.H., Gilmore, E.H., Hufford, M.B., Johnson, L.C., Kellogg, E.A., La, T., Long, E., Miller, Z.R., Romay, M.C., Seetharam, A.S., Stitzer, M.C., Wrightsman, T., Buckler, E.S., Monier, B., & **Hsu, S-K.** (2023). **Fishing for a reelGene: evaluating gene models with evolution and machine learning**. *bioRxiv.* https://doi.org/10.1101/2023.09.19.558246
 
 
 # Presentations
@@ -73,4 +75,4 @@
 
 
 
-_Last updated: 2025-09-01_
+_Last updated: 2025-09-26_
