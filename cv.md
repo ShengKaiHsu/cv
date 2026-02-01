@@ -22,9 +22,9 @@
 
 ## Peer-reviewed Publications
 
-1. Hale, C.O., **Hsu, S-K.**, Zhai, J., Schulz, A.J., Aubuchon-Elder, T., Costa-Neto, G., Gelfond, A., El-Walid, M., Hufford, M., Kellogg, E.A., La, T., Marand, A.P., Seetharam, A.S., Scheben, A., Stitzer, M., Wrightsman, T., Romay, M.C., & Buckler, E.S. (2025). **Widespread turnover of a conserved
-                    <i>cis-</i>
-                    regulatory code across 589 grass species**. *Molecular Biology and Evolution*. https://doi.org/10.1093/molbev/msaf324
+1. Hale, C.O., **Hsu, S-K.**, Zhai, J., Schulz, A., Aubuchon-Elder, T., Costa-Neto, G., Gelfond, A., El-Walid, M.Z., Hufford, M., Kellogg, E.A., La, T., Marand, A.P., Seetharam, A.S., Scheben, A., Stitzer, M.C., Wrightsman, T., Romay, M.C., & Buckler, E.S. (2025). **Widespread turnover of a conserved cis
+                    <i>-</i>
+                    regulatory code across 589 grass species**. *Molecular Biology and Evolution*, *43*(1). https://doi.org/10.1093/molbev/msaf324
 
 2. Schulz, A.J., Zhai, J., AuBuchon‐Elder, T., Andorf, C.M., El‐Walid, M.Z., Ferebee, T.H., Gilmore, E.H., Hufford, M.B., Johnson, L.C., Kellogg, E.A., & *et al.* (2025). **Fishing for a <scp>reelGene</scp>: evaluating gene models with evolution and machine learning**. *The Plant Journal*, *123*(6). https://doi.org/10.1111/tpj.70483
 
@@ -66,7 +66,9 @@
 
 4. Oren, E., Zhai, J., Rooney, T., Angelovici, R., Hale, C., Brindisi, L.J., **Hsu, S-K.**, Gault, C., Hua, J., La, T., Lepak, N., Fu, Q., Buckler, E., & Romay, C. (2025). **Grass Rhizome Proteomics Reveals Convergent Freezing-Tolerance Strategies**. *bioRxiv.* https://doi.org/10.1101/2025.05.15.654294
 
-5. Hale, C.O., **Hsu, S-K.**, Zhai, J., Schulz, A.J., Aubuchon-Elder, T., Costa-Neto, G., Gelfond, A., El-Walid, M., Hufford, M., Kellogg, E.A., La, T., Marand, A.P., Seetharam, A.S., Scheben, A., Stitzer, M., Wrightsman, T., Romay, M.C., & Buckler, E.S. (2025). **Extensive modulation of a conserved <i>cis</i> -regulatory code across 589 grass species**. *bioRxiv.* https://doi.org/10.1101/2025.04.23.650228
+5. Hale, C.O., **Hsu, S-K.**, Zhai, J., Schulz, A.J., Aubuchon-Elder, T., Costa-Neto, G., Gelfond, A., El-Walid, M., Hufford, M., Kellogg, E.A., La, T., Marand, A.P., Seetharam, A.S., Scheben, A., Stitzer, M., Wrightsman, T., Romay, M.C., & Buckler, E.S. (2025). **Extensive modulation of a conserved
+                  <i>cis</i>
+                  -regulatory code across 589 grass species**. *bioRxiv.* https://doi.org/10.1101/2025.04.23.650228
 
 6. Stitzer, M.C., Seetharam, A.S., Scheben, A., **Hsu, S-K.**, Schulz, A.J., AuBuchon-Elder, T.M., El-Walid, M., Ferebee, T.H., Hale, C.O., La, T., & *et al.* (2025). **Extensive genome evolution distinguishes maize within a stable tribe of grasses**. *bioRxiv.* https://doi.org/10.1101/2025.01.22.633974
 
@@ -89,4 +91,4 @@
 
 
 
-_Last updated: 2026-01-01_
+_Last updated: 2026-02-01_
