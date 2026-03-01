@@ -64,7 +64,7 @@
 
 3. Zhai, J., Gokaslan, A., **Hsu, S-K.**, Chen, S-P., Liu, Z-Y., Marroquin, E., Czech, E., Cannon, B., Berthel, A., Romay, M.C., Pennell, M., Kuleshov, V., & Buckler, E.S. (2025). **PlantCAD2: A Long-Context DNA Language Model for Cross-Species Functional Annotation in Angiosperms**. *bioRxiv.* https://doi.org/10.1101/2025.08.27.672609
 
-4. Oren, E., Zhai, J., Rooney, T., Angelovici, R., Hale, C., Brindisi, L.J., **Hsu, S-K.**, Gault, C., Hua, J., La, T., Lepak, N., Fu, Q., Buckler, E., & Romay, C. (2025). **Grass Rhizome Proteomics Reveals Convergent Freezing-Tolerance Strategies**. *bioRxiv.* https://doi.org/10.1101/2025.05.15.654294
+4. Oren, E., Zhai, J., Rooney, T.E., Angelovici, R., Hale, C.O., Brindisi, L.J., **Hsu, S-K.**, Gault, C.M., Hua, J., La, T., Lepak, N., Fu, Q., Buckler, E.S., & Romay, M.C. (2025). **Constrained evolution of a core winter proteome across independently cold-adapted PACMAD grasses**. *bioRxiv.* https://doi.org/10.1101/2025.05.15.654294
 
 5. Hale, C.O., **Hsu, S-K.**, Zhai, J., Schulz, A.J., Aubuchon-Elder, T., Costa-Neto, G., Gelfond, A., El-Walid, M., Hufford, M., Kellogg, E.A., La, T., Marand, A.P., Seetharam, A.S., Scheben, A., Stitzer, M., Wrightsman, T., Romay, M.C., & Buckler, E.S. (2025). **Extensive modulation of a conserved
                   <i>cis</i>
@@ -91,4 +91,4 @@
 
 
 
-_Last updated: 2026-02-01_
+_Last updated: 2026-03-01_
