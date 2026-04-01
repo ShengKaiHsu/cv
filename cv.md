@@ -26,7 +26,9 @@
                     <i>-</i>
                     regulatory code across 589 grass species**. *Molecular Biology and Evolution*, *43*(1). https://doi.org/10.1093/molbev/msaf324
 
-2. Schulz, A.J., Zhai, J., AuBuchon‐Elder, T., Andorf, C.M., El‐Walid, M.Z., Ferebee, T.H., Gilmore, E.H., Hufford, M.B., Johnson, L.C., Kellogg, E.A., & *et al.* (2025). **Fishing for a <scp>reelGene</scp>: evaluating gene models with evolution and machine learning**. *The Plant Journal*, *123*(6). https://doi.org/10.1111/tpj.70483
+2. Schulz, A.J., Zhai, J., AuBuchon‐Elder, T., Andorf, C.M., El‐Walid, M.Z., Ferebee, T.H., Gilmore, E.H., Hufford, M.B., Johnson, L.C., Kellogg, E.A., & *et al.* (2025). **Fishing for a
+                    <scp>reelGene</scp>
+                    : evaluating gene models with evolution and machine learning**. *The Plant Journal*, *123*(6). https://doi.org/10.1111/tpj.70483
 
 3. Ojeda-Rivera, J.O., Barnes, A.C., Ainsworth, E.A., Angelovici, R., Basso, B., Brindisi, L.J., Brooks, M.D., Busch, W., Buttelmann, G.L., Castellano, M.J., & *et al.* (2025). **Designing a nitrogen-efficient cold-tolerant maize for modern agricultural systems**. *The Plant Cell*, *37*(7). https://doi.org/10.1093/plcell/koaf139
 
@@ -91,4 +93,4 @@
 
 
 
-_Last updated: 2026-03-01_
+_Last updated: 2026-04-01_
