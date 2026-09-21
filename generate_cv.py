@@ -20,7 +20,7 @@ TITLE = "Postdoc"
 AFFILIATION = "Institute for Genomic Diversity, Cornell University"
 ORCID_ID = "0000-0002-6942-7163"
 # The `user=` value in your Google Scholar profile URL. Leave empty to omit the link.
-SCHOLAR_ID = ""
+SCHOLAR_ID = "u_wofDgAAAAJ"
 
 # For bolding your name
 YOUR_FAMILY_NAME = "Hsu"
