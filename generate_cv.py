@@ -75,6 +75,10 @@ def clean_text(text):
     )
     text = TAG_RE.sub("", text)
     text = html.unescape(text)
+    # JATS pretty-printing wraps inline markup in newlines ("cis\n <i>-</i>\n
+    # regulatory"); rejoin the hyphen so it does not become "cis - regulatory".
+    text = re.sub(r"(?<=[\w*])\s*\n\s*-\s*(?=[\w*])", "-", text)
+    text = re.sub(r"(?<=[\w*])-\s*\n\s*(?=[\w*])", "-", text)
     text = re.sub(r"\s+", " ", text)
     # Removing tags can leave " :" or " ," behind.
     return re.sub(r"\s+([,.;:!?)\]])", r"\1", text).strip()
