@@ -19,6 +19,8 @@ EMAIL = "sh2246@cornell.edu"
 TITLE = "Postdoc"
 AFFILIATION = "Institute for Genomic Diversity, Cornell University"
 ORCID_ID = "0000-0002-6942-7163"
+# The `user=` value in your Google Scholar profile URL. Leave empty to omit the link.
+SCHOLAR_ID = ""
 
 # For bolding your name
 YOUR_FAMILY_NAME = "Hsu"
@@ -125,21 +127,26 @@ def format_author(family, given):
 
 
 def join_authors(authors):
-    """Join formatted author names, truncating long lists but keeping you visible."""
+    """Join formatted author names, eliding the middle of very long lists.
+
+    Truncation follows APA: the first few authors, an ellipsis, then the final
+    author — never "et al.", which would wrongly imply further authors after
+    the last one. Your own name is spliced back in (between ellipses) when it
+    falls in the elided middle, so senior/first authorship stays visible.
+    """
     if not authors:
         return "Unknown Author"
+    if len(authors) == 1:
+        return authors[0]
     if len(authors) <= MAX_AUTHORS:
-        if len(authors) == 1:
-            return authors[0]
         return ", ".join(authors[:-1]) + ", & " + authors[-1]
 
     shown = authors[:AUTHORS_WHEN_TRUNCATED]
-    tail = ""
-    if not any(a.startswith("**") for a in shown):
-        you = next((a for a in authors if a.startswith("**")), None)
-        if you:
-            tail = f", …, {you}"
-    return ", ".join(shown) + tail + ", *et al.*"
+    middle = ""
+    you = next((i for i, a in enumerate(authors) if a.startswith("**")), None)
+    if you is not None and AUTHORS_WHEN_TRUNCATED <= you < len(authors) - 1:
+        middle = f", …, {authors[you]}"
+    return ", ".join(shown) + middle + ", …, & " + authors[-1]
 
 
 # === ORCID / CROSSREF ===
@@ -407,12 +414,19 @@ def main():
     with open("cv_template.md") as f:
         template = f.read()
 
+    scholar = (
+        f"  \n**Google Scholar:** "
+        f"[{NAME}](https://scholar.google.com/citations?user={SCHOLAR_ID})"
+        if SCHOLAR_ID
+        else ""
+    )
     cv_filled = (
         template.replace("{{NAME}}", NAME)
         .replace("{{EMAIL}}", EMAIL)
         .replace("{{TITLE}}", TITLE)
         .replace("{{AFFILIATION}}", AFFILIATION)
         .replace("{{ORCID}}", ORCID_ID)
+        .replace("{{SCHOLAR}}", scholar)
         .replace("{{PUBLICATIONS}}", publications)
         .replace("{{DATE}}", str(date.today()))
     )

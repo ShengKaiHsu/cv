@@ -2,7 +2,7 @@
 
 **Affiliation:** {{AFFILIATION}}  
 **Email:** {{EMAIL}}  
-**ORCID:** [{{ORCID}}](https://orcid.org/{{ORCID}})
+**ORCID:** [{{ORCID}}](https://orcid.org/{{ORCID}}){{SCHOLAR}}
 
 
 # Positions & Education
