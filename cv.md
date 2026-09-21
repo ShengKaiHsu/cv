@@ -2,7 +2,8 @@
 
 **Affiliation:** Institute for Genomic Diversity, Cornell University  
 **Email:** sh2246@cornell.edu  
-**ORCID:** [0000-0002-6942-7163](https://orcid.org/0000-0002-6942-7163)
+**ORCID:** [0000-0002-6942-7163](https://orcid.org/0000-0002-6942-7163)  
+**Google Scholar:** [Sheng-Kai Hsu](https://scholar.google.com/citations?user=u_wofDgAAAAJ)
 
 
 # Positions & Education
@@ -24,9 +25,9 @@
 
 1. Hale, C.O., **Hsu, S.-K.**, Zhai, J., Schulz, A., Aubuchon-Elder, T., Costa-Neto, G., Gelfond, A., El-Walid, M.Z., Hufford, M., Kellogg, E.A., La, T., Marand, A.P., Seetharam, A.S., Scheben, A., Stitzer, M.C., Wrightsman, T., Romay, M.C., & Buckler, E.S. (2025). **Widespread turnover of a conserved cis - regulatory code across 589 grass species**. *Molecular Biology and Evolution*, *43*(1). https://doi.org/10.1093/molbev/msaf324
 
-2. Schulz, A.J., Zhai, J., AuBuchon‐Elder, T., Andorf, C.M., El‐Walid, M.Z., Ferebee, T.H., Gilmore, E.H., Hufford, M.B., Johnson, L.C., Kellogg, E.A., …, **Hsu, S.-K.**, *et al.* (2025). **Fishing for a reelGene: evaluating gene models with evolution and machine learning**. *The Plant Journal*, *123*(6). https://doi.org/10.1111/tpj.70483
+2. Schulz, A.J., Zhai, J., AuBuchon‐Elder, T., Andorf, C.M., El‐Walid, M.Z., Ferebee, T.H., Gilmore, E.H., Hufford, M.B., Johnson, L.C., Kellogg, E.A., …, & **Hsu, S.-K.** (2025). **Fishing for a reelGene: evaluating gene models with evolution and machine learning**. *The Plant Journal*, *123*(6). https://doi.org/10.1111/tpj.70483
 
-3. Ojeda-Rivera, J.O., Barnes, A.C., Ainsworth, E.A., Angelovici, R., Basso, B., Brindisi, L.J., Brooks, M.D., Busch, W., Buttelmann, G.L., Castellano, M.J., …, **Hsu, S.-K.**, *et al.* (2025). **Designing a nitrogen-efficient cold-tolerant maize for modern agricultural systems**. *The Plant Cell*, *37*(7). https://doi.org/10.1093/plcell/koaf139
+3. Ojeda-Rivera, J.O., Barnes, A.C., Ainsworth, E.A., Angelovici, R., Basso, B., Brindisi, L.J., Brooks, M.D., Busch, W., Buttelmann, G.L., Castellano, M.J., …, **Hsu, S.-K.**, …, & Buckler, E.S. (2025). **Designing a nitrogen-efficient cold-tolerant maize for modern agricultural systems**. *The Plant Cell*, *37*(7). https://doi.org/10.1093/plcell/koaf139
 
 4. **Hsu, S.-K.**, Emmett, B.D., Haafke, A., Costa‐Neto, G., Schulz, A.J., Lepak, N., La, T., AuBuchon‐Elder, T.M., Hale, C.O., Raglin, S.S., Ojeda‐Rivera, J.O., Kent, A.D., Kellogg, E.A., Romay, M.C., & Buckler, E.S. (2025). **Contrasting rhizosphere nitrogen dynamics in Andropogoneae grasses**. *The Plant Journal*, *123*(1). https://doi.org/10.1111/tpj.70319
 
@@ -54,7 +55,7 @@
 
 ## Preprints
 
-1. **Hsu, S.-K.**, Schulz, A.J., Hale, C.O., Costa-Neto, G., Miller, Z.R., Stitzer, M.C., Wrightsman, T., Zhai, J., Lai, W.-Y., Dawson, H.D., *et al.* (2026). **Convergent genome- and gene-level constraints shape repeated environmental adaptation in grasses**. *bioRxiv*. https://doi.org/10.64898/2026.06.01.729361
+1. **Hsu, S.-K.**, Schulz, A.J., Hale, C.O., Costa-Neto, G., Miller, Z.R., Stitzer, M.C., Wrightsman, T., Zhai, J., Lai, W.-Y., Dawson, H.D., …, & Buckler, E.S. (2026). **Convergent genome- and gene-level constraints shape repeated environmental adaptation in grasses**. *bioRxiv*. https://doi.org/10.64898/2026.06.01.729361
 
 2. Ojeda-Rivera, J.O., Oren, E., **Hsu, S.-K.**, Lepak, N., La, T., Zhai, J., Stitzer, M.C., Yobi, A., Angelovici, R., Buckler, E.S., & Romay, M.C. (2026). **A transcriptomic atlas of grass senescence reveals divergent underground sink networks limit nitrogen recycling in annuals**. *bioRxiv*. https://doi.org/10.64898/2026.05.05.723041
 
@@ -66,7 +67,7 @@
 
 6. Oren, E., Zhai, J., Rooney, T.E., Angelovici, R., Hale, C.O., Brindisi, L.J., **Hsu, S.-K.**, Gault, C.M., Hua, J., La, T., Lepak, N., Fu, Q., Buckler, E.S., & Romay, M.C. (2025). **Constrained evolution of a core winter proteome across independently cold-adapted PACMAD grasses**. *bioRxiv*. https://doi.org/10.1101/2025.05.15.654294
 
-7. Stitzer, M.C., Seetharam, A.S., Scheben, A., **Hsu, S.-K.**, Schulz, A.J., AuBuchon-Elder, T.M., El-Walid, M., Ferebee, T.H., Hale, C.O., La, T., *et al.* (2025). **Extensive genome evolution distinguishes maize within a stable tribe of grasses**. *bioRxiv*. https://doi.org/10.1101/2025.01.22.633974
+7. Stitzer, M.C., Seetharam, A.S., Scheben, A., **Hsu, S.-K.**, Schulz, A.J., AuBuchon-Elder, T.M., El-Walid, M., Ferebee, T.H., Hale, C.O., La, T., …, & Hufford, M.B. (2025). **Extensive genome evolution distinguishes maize within a stable tribe of grasses**. *bioRxiv*. https://doi.org/10.1101/2025.01.22.633974
 
 
 # Presentations
