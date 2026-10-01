@@ -23,7 +23,7 @@
 
 ## Peer-reviewed Publications
 
-1. Hale, C.O., **Hsu, S.-K.**, Zhai, J., Schulz, A., Aubuchon-Elder, T., Costa-Neto, G., Gelfond, A., El-Walid, M.Z., Hufford, M., Kellogg, E.A., La, T., Marand, A.P., Seetharam, A.S., Scheben, A., Stitzer, M.C., Wrightsman, T., Romay, M.C., & Buckler, E.S. (2025). **Widespread turnover of a conserved cis - regulatory code across 589 grass species**. *Molecular Biology and Evolution*, *43*(1). https://doi.org/10.1093/molbev/msaf324
+1. Hale, C.O., **Hsu, S.-K.**, Zhai, J., Schulz, A., Aubuchon-Elder, T., Costa-Neto, G., Gelfond, A., El-Walid, M.Z., Hufford, M., Kellogg, E.A., La, T., Marand, A.P., Seetharam, A.S., Scheben, A., Stitzer, M.C., Wrightsman, T., Romay, M.C., & Buckler, E.S. (2025). **Widespread turnover of a conserved cis-regulatory code across 589 grass species**. *Molecular Biology and Evolution*, *43*(1). https://doi.org/10.1093/molbev/msaf324
 
 2. Schulz, A.J., Zhai, J., AuBuchon‐Elder, T., Andorf, C.M., El‐Walid, M.Z., Ferebee, T.H., Gilmore, E.H., Hufford, M.B., Johnson, L.C., Kellogg, E.A., …, & **Hsu, S.-K.** (2025). **Fishing for a reelGene: evaluating gene models with evolution and machine learning**. *The Plant Journal*, *123*(6). https://doi.org/10.1111/tpj.70483
 
@@ -86,4 +86,4 @@
 
 
 
-_Last updated: 2026-09-21_
+_Last updated: 2026-10-01_
