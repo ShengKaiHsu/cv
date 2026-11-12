@@ -5,6 +5,7 @@ metadata, and a preprint is dropped from the preprint section once its
 peer-reviewed version shows up among the journal articles.
 """
 
+import difflib
 import html
 import re
 import sys
@@ -16,8 +17,8 @@ import requests
 # USER CONFIG: Update these with your actual info
 NAME = "Sheng-Kai Hsu"
 EMAIL = "sh2246@cornell.edu"
-TITLE = "Postdoc"
-AFFILIATION = "Institute for Genomic Diversity, Cornell University"
+TITLE = "Principal Investigator"
+AFFILIATION = "Biodiversity Research Center, Academia Sinica"
 ORCID_ID = "0000-0002-6942-7163"
 # The `user=` value in your Google Scholar profile URL. Leave empty to omit the link.
 SCHOLAR_ID = "u_wofDgAAAAJ"
@@ -36,6 +37,18 @@ USER_AGENT = f"cv-builder (https://orcid.org/{ORCID_ID}; mailto:{EMAIL})"
 ORCID_HEADERS = {"Accept": "application/json", "User-Agent": USER_AGENT}
 
 PREPRINT_DOI_PREFIXES = ("10.1101/", "10.64898/")
+
+# Last resort for a preprint whose published version nothing links to it and
+# which `looks_retitled` does not catch: preprint DOI -> journal article DOI.
+# The run log names any preprint worth adding here.
+PUBLISHED_AS = {}
+
+# Thresholds for `looks_retitled`, validated against this CV's own publications:
+# the real preprint/article pair scored 1.00 author overlap and a 10-word shared
+# title run, while the closest unrelated pair managed only 0.57 and 4 words.
+MIN_AUTHOR_OVERLAP = 0.8
+MIN_SHARED_TITLE_RUN = 6
+MIN_SHARED_TITLE_FRACTION = 0.5
 
 
 def get_json(url, headers=None, attempts=3):
@@ -189,22 +202,22 @@ def orcid_works(orcid_id):
             }
 
 
-def orcid_authors(orcid_id, put_code):
+def orcid_author_pairs(orcid_id, put_code):
+    """(family, given) for each contributor ORCID lists on a work."""
     data = get_json(
         f"https://pub.orcid.org/v3.0/{orcid_id}/work/{put_code}", headers=ORCID_HEADERS
     )
     if not data:
         return []
 
-    authors = []
+    pairs = []
     for contributor in data.get("contributors", {}).get("contributor", []):
         name = (contributor.get("credit-name", {}) or {}).get("value", "").strip()
         if not name:
             continue
         parts = name.split()
-        family, given = (parts[-1], " ".join(parts[:-1])) if len(parts) >= 2 else (name, "")
-        authors.append(format_author(family, given))
-    return authors
+        pairs.append((parts[-1], " ".join(parts[:-1])) if len(parts) >= 2 else (name, ""))
+    return pairs
 
 
 def first(values):
@@ -246,18 +259,16 @@ def crossref_related_dois(metadata, relations):
 # === ENTRY BUILDING ===
 
 
-def build_entry(work, metadata, orcid_id):
-    """Return (sort_key, citation) for one publication."""
+def build_entry(work, orcid_id):
+    """Fill in the work's rendered citation, sort key, resolved title and surnames."""
+    metadata = work["metadata"]
     title = clean_text(work["title"])
     year = work["year"] or "n.d."
     sort_date = (int(year) if str(year).isdigit() else 0, 0, 0)
     doi_url = f"https://doi.org/{work['doi']}"
 
     if metadata:
-        authors = [
-            format_author(a.get("family", ""), a.get("given", ""))
-            for a in metadata.get("author", [])
-        ]
+        pairs = [(a.get("family", ""), a.get("given", "")) for a in metadata.get("author", [])]
         date_parts = first(metadata.get("issued", {}).get("date-parts")) or []
         if date_parts and date_parts[0]:
             year = date_parts[0]
@@ -274,15 +285,16 @@ def build_entry(work, metadata, orcid_id):
         issue = metadata.get("issue", "")
         pages = metadata.get("page", "")
     else:
-        authors = orcid_authors(orcid_id, work["put_code"])
+        pairs = orcid_author_pairs(orcid_id, work["put_code"])
         container = default_preprint_server(work["doi"]) if work["type"] == "preprint" else ""
         volume = issue = pages = ""
 
-    if not authors:
-        authors = orcid_authors(orcid_id, work["put_code"])
-    if not authors:
+    if not pairs:
+        pairs = orcid_author_pairs(orcid_id, work["put_code"])
+    if not pairs:
         print(f"⚠️ No author information for {work['doi']} ({title})")
 
+    authors = [format_author(family, given) for family, given in pairs]
     citation = f"{join_authors(authors)} ({year}). **{title}**."
     if container:
         citation += f" *{container}*"
@@ -294,19 +306,62 @@ def build_entry(work, metadata, orcid_id):
             citation += f", {pages}"
         citation += "."
     citation += f" {doi_url}"
-    return sort_date, citation
+
+    work["title"] = title
+    work["sort_date"] = sort_date
+    work["citation"] = citation
+    work["surnames"] = [family.lower() for family, _ in pairs if family]
 
 
 # === PREPRINT / PUBLISHED RECONCILIATION ===
+
+
+def title_tokens(title):
+    return re.sub(r"[^a-z0-9 ]+", " ", clean_text(title).lower()).split()
+
+
+def shared_title_run(a, b):
+    """Longest run of consecutive words two titles share, and its share of the shorter."""
+    ta, tb = title_tokens(a), title_tokens(b)
+    if not ta or not tb:
+        return 0, 0.0
+    blocks = difflib.SequenceMatcher(None, ta, tb).get_matching_blocks()
+    longest = max((block.size for block in blocks), default=0)
+    return longest, longest / min(len(ta), len(tb))
+
+
+def author_overlap(a, b):
+    """Jaccard index of two surname lists."""
+    sa, sb = set(a), set(b)
+    return len(sa & sb) / len(sa | sb) if sa or sb else 0.0
+
+
+def looks_retitled(preprint, journal):
+    """True when a journal article is this preprint under a rewritten title.
+
+    Journals routinely retitle a paper on acceptance, which defeats exact title
+    matching, and publishers do not always deposit the Crossref preprint
+    relation. Three independent conditions must hold together: nearly the same
+    author set, a long shared run of consecutive title words, and a publication
+    year no earlier than the preprint's.
+    """
+    if author_overlap(preprint["surnames"], journal["surnames"]) < MIN_AUTHOR_OVERLAP:
+        return False
+    if journal["sort_date"][0] < preprint["sort_date"][0]:
+        return False
+    run, fraction = shared_title_run(preprint["title"], journal["title"])
+    return run >= MIN_SHARED_TITLE_RUN and fraction >= MIN_SHARED_TITLE_FRACTION
 
 
 def drop_published_preprints(journals, preprints):
     """Remove preprints whose peer-reviewed version is already in the CV.
 
     A preprint counts as published when any of these point at a journal article
-    we already list: the Crossref preprint/article relation, the bioRxiv API's
-    `published` field, ORCID's own grouping, a shared versioned-DOI stem, or an
-    identical title. Older versions of the same preprint are collapsed too.
+    we already list: the PUBLISHED_AS override, the Crossref preprint/article
+    relation, the bioRxiv API's `published` field, ORCID's own grouping, a
+    shared versioned-DOI stem, an identical title, or `looks_retitled` for an
+    article renamed on acceptance. Older versions of the same preprint are
+    collapsed too.
     """
     journal_dois = {j["key"] for j in journals}
     journal_bases = {doi_base(j["key"]) for j in journals}
@@ -336,7 +391,9 @@ def drop_published_preprints(journals, preprints):
             continue
 
         reason = None
-        if doi_base(doi) in journal_bases and doi not in journal_dois:
+        if PUBLISHED_AS.get(doi, "").lower() in journal_dois:
+            reason = f"PUBLISHED_AS override -> {PUBLISHED_AS[doi]}"
+        elif doi_base(doi) in journal_bases and doi not in journal_dois:
             reason = "same versioned DOI as a listed article"
         elif doi in journal_preprint_links:
             reason = "Crossref links it to a listed article"
@@ -350,8 +407,15 @@ def drop_published_preprints(journals, preprints):
             )
             published |= {biorxiv_published_doi(doi)} - {None}
             match = published & journal_dois
+            retitled = next((j for j in journals if looks_retitled(preprint, j)), None)
             if match:
                 reason = f"published as {sorted(match)[0]}"
+            elif retitled:
+                run, _ = shared_title_run(preprint["title"], retitled["title"])
+                reason = (
+                    f"retitled on publication as {retitled['doi']} "
+                    f"(same authors, {run} title words in common)"
+                )
             elif published:
                 print(
                     f"ℹ️  {title} looks published as {sorted(published)[0]}, "
@@ -362,7 +426,30 @@ def drop_published_preprints(journals, preprints):
             print(f"✅ Dropping published preprint ({reason}): {title}")
             continue
         kept.append(preprint)
+
+    report_near_misses(kept, journals)
     return kept
+
+
+def report_near_misses(preprints, journals):
+    """Flag a surviving preprint that shares an author set with a listed article.
+
+    Silence is what let a retitled preprint sit in the CV for months, so anything
+    close to the drop threshold gets named in the run log.
+    """
+    for preprint in preprints:
+        for journal in journals:
+            if author_overlap(preprint["surnames"], journal["surnames"]) < MIN_AUTHOR_OVERLAP:
+                continue
+            run, _ = shared_title_run(preprint["title"], journal["title"])
+            if run < 3:
+                continue
+            print(
+                f"🔍 Check {preprint['doi']} ({clean_text(preprint['title'])[:60]}…): "
+                f"same authors as {journal['doi']} with {run} title words in common. "
+                "If it is the published version, add it to PUBLISHED_AS."
+            )
+
 
 
 # === OUTPUT ===
@@ -380,13 +467,12 @@ def fetch_publications(orcid_id):
     works = list(orcid_works(orcid_id))
     for work in works:
         work["metadata"] = crossref_metadata(work["doi"])
+        # Reconciliation compares resolved titles and author lists, so entries are
+        # built before anything is dropped.
+        build_entry(work, orcid_id)
 
     journals = [w for w in works if w["type"] == "journal-article"]
-    preprints = [w for w in works if w["type"] == "preprint"]
-    preprints = drop_published_preprints(journals, preprints)
-
-    for work in journals + preprints:
-        work["sort_date"], work["citation"] = build_entry(work, work["metadata"], orcid_id)
+    preprints = drop_published_preprints(journals, [w for w in works if w["type"] == "preprint"])
 
     sections = [
         format_section("Peer-reviewed Publications", journals),
