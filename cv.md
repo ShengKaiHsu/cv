@@ -1,6 +1,6 @@
 # Sheng-Kai Hsu
 
-**Affiliation:** Institute for Genomic Diversity, Cornell University  
+**Affiliation:** Biodiversity Research Center, Academia Sinica  
 **Email:** sh2246@cornell.edu  
 **ORCID:** [0000-0002-6942-7163](https://orcid.org/0000-0002-6942-7163)  
 **Google Scholar:** [Sheng-Kai Hsu](https://scholar.google.com/citations?user=u_wofDgAAAAJ)
@@ -10,7 +10,8 @@
 
 | Year         | Position / Degree                                                                 |
 |--------------|------------------------------------------------------------------------------------|
-| 2022–present | Postdoctoral research fellow, Institute for Genomic Diversity, Cornell University  |  
+| 2026–present | Principal Investigator, Biodiversity Research Center, Academia Sinica, Taiwan |
+| 2022–2026    | Postdoctoral research fellow, Institute for Genomic Diversity, Cornell University  |  
 |              | *Advisor: Edward Buckler*                      |
 | 2017–2021    | Ph.D., Vienna Graduate School of Population Genetics, Univ. of Veterinary Medicine Vienna  |
 |              | *Advisor: Christian Schlötterer* |
@@ -69,9 +70,7 @@
 
 5. Liu, Z.-Y., Berthel, A., Czech, E., Marroquin, E., Stitzer, M., **Hsu, S.-K.**, Pennell, M., Buckler, E.S., & Zhai, J. (2025). **GeneCAD: Plant Genome Annotation with a DNA Foundation Model**. *bioRxiv*. https://doi.org/10.1101/2025.10.31.685877
 
-6. Oren, E., Zhai, J., Rooney, T.E., Angelovici, R., Hale, C.O., Brindisi, L.J., **Hsu, S.-K.**, Gault, C.M., Hua, J., La, T., Lepak, N., Fu, Q., Buckler, E.S., & Romay, M.C. (2025). **Constrained evolution of a core winter proteome across independently cold-adapted PACMAD grasses**. *bioRxiv*. https://doi.org/10.1101/2025.05.15.654294
-
-7. Stitzer, M.C., Seetharam, A.S., Scheben, A., **Hsu, S.-K.**, Schulz, A.J., AuBuchon-Elder, T.M., El-Walid, M., Ferebee, T.H., Hale, C.O., La, T., …, & Hufford, M.B. (2025). **Extensive genome evolution distinguishes maize within a stable tribe of grasses**. *bioRxiv*. https://doi.org/10.1101/2025.01.22.633974
+6. Stitzer, M.C., Seetharam, A.S., Scheben, A., **Hsu, S.-K.**, Schulz, A.J., AuBuchon-Elder, T.M., El-Walid, M., Ferebee, T.H., Hale, C.O., La, T., …, & Hufford, M.B. (2025). **Extensive genome evolution distinguishes maize within a stable tribe of grasses**. *bioRxiv*. https://doi.org/10.1101/2025.01.22.633974
 
 
 # Presentations
