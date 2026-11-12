@@ -9,7 +9,8 @@
 
 | Year         | Position / Degree                                                                 |
 |--------------|------------------------------------------------------------------------------------|
-| 2022–present | Postdoctoral research fellow, Institute for Genomic Diversity, Cornell University  |  
+| 2026–present | Principal Investigator, Biodiversity Research Center, Academia Sinica, Taiwan |
+| 2022–2026    | Postdoctoral research fellow, Institute for Genomic Diversity, Cornell University  |  
 |              | *Advisor: Edward Buckler*                      |
 | 2017–2021    | Ph.D., Vienna Graduate School of Population Genetics, Univ. of Veterinary Medicine Vienna  |
 |              | *Advisor: Christian Schlötterer* |
