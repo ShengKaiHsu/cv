@@ -27,6 +27,16 @@ SCHOLAR_ID = "u_wofDgAAAAJ"
 YOUR_FAMILY_NAME = "Hsu"
 YOUR_INITIALS = "S.-K."
 
+# Papers where you are co-first author, by DOI (case is ignored). Your name gets
+# CO_FIRST_MARKER in those entries and the legend appears under the list. The run
+# log warns about an entry that matches no publication, or whose author list your
+# name was not found in.
+CO_FIRST_DOIS = {
+    # "10.1111/tpj.70319",
+}
+CO_FIRST_MARKER = r"\*"
+CO_FIRST_LEGEND = r"\* Co-first author"
+
 # List every author up to this many; beyond it, truncate with "et al."
 MAX_AUTHORS = 20
 AUTHORS_WHEN_TRUNCATED = 10
@@ -229,6 +239,10 @@ def default_preprint_server(doi):
     return "bioRxiv" if doi.startswith(PREPRINT_DOI_PREFIXES) else "Preprint"
 
 
+def co_first_keys():
+    return {doi.strip().lower() for doi in CO_FIRST_DOIS if doi.strip()}
+
+
 def crossref_metadata(doi):
     data = get_json(f"https://api.crossref.org/works/{doi}")
     return (data or {}).get("message")
@@ -295,6 +309,14 @@ def build_entry(work, orcid_id):
         print(f"⚠️ No author information for {work['doi']} ({title})")
 
     authors = [format_author(family, given) for family, given in pairs]
+    if work["key"] in co_first_keys():
+        marked = [a + CO_FIRST_MARKER if a.startswith("**") else a for a in authors]
+        if marked == authors:
+            print(
+                f"⚠️ {work['doi']} is in CO_FIRST_DOIS but your name was not found "
+                f"in its author list, so it is unmarked"
+            )
+        authors = marked
     citation = f"{join_authors(authors)} ({year}). **{title}**."
     if container:
         citation += f" *{container}*"
@@ -478,7 +500,13 @@ def fetch_publications(orcid_id):
         format_section("Peer-reviewed Publications", journals),
         format_section("Preprints", preprints),
     ]
-    return "\n".join(s for s in sections if s), len(journals) + len(preprints)
+    listed = journals + preprints
+    body = "\n".join(s for s in sections if s)
+    if any(work["key"] in co_first_keys() for work in listed):
+        body += f"\n{CO_FIRST_LEGEND}\n"
+    for doi in sorted(co_first_keys() - {work["key"] for work in listed}):
+        print(f"⚠️ CO_FIRST_DOIS entry matches no listed publication: {doi}")
+    return body, len(listed)
 
 
 def check_not_truncated(new_count, path="cv.md"):
