@@ -32,7 +32,10 @@ YOUR_INITIALS = "S.-K."
 # log warns about an entry that matches no publication, or whose author list your
 # name was not found in.
 CO_FIRST_DOIS = {
-    # "10.1111/tpj.70319",
+    "10.1111/mec.17803",              # Thorhölludottir et al. 2025, Molecular Ecology
+    "10.1111/eva.13592",              # Buchner et al. 2023, Evolutionary Applications
+    "10.1111/mec.15649",              # Hsu et al. 2020, Molecular Ecology
+    "10.64898/2026.06.01.729361",     # Hsu et al. 2026, bioRxiv
 }
 CO_FIRST_MARKER = r"\*"
 CO_FIRST_LEGEND = r"\* Co-first author"
